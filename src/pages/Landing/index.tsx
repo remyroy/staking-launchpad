@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AppBar } from '../../components/AppBar';
 import { TestnetNotification } from '../../components/TestnetNotification';
+import { EthStakerNotification } from '../../components/EthStakerNotification';
 import { Hero } from './Hero';
 import { NetworkStatus } from './NetworkStatus';
 import { Introduction } from './Introduction';
@@ -31,6 +32,7 @@ export const LandingPage = (): JSX.Element => {
     <>
       <AppBar />
       {!IS_MAINNET && <TestnetNotification />}
+      <EthStakerNotification />
       <Hero />
       <NetworkStatus {...{ state }} />
       <Introduction />

@@ -252,6 +252,9 @@
   "3URRZK": {
     "message": "Geth on Goerli documentation"
   },
+  "3jxyU5": {
+    "message": "EthStaker Discord Server"
+  },
   "3tR/V9": {
     "message": "Section 2 - During setup"
   },
@@ -1641,6 +1644,9 @@
   "esDvdR": {
     "message": "Validator balance is over {PRICE_PER_VALIDATOR}, but effective balance is low ({effectiveBalance}). Adding {minTopupValue} {TICKER_NAME} (the minimum allowed by the deposit contract) will max out your effective balance."
   },
+  "ewXWx4": {
+    "message": "whitelisted"
+  },
   "eyK2E3": {
     "message": "Complete checklist"
   },
@@ -1931,6 +1937,9 @@
   },
   "lD66ab": {
     "message": "Outstanding deposit"
+  },
+  "lEoE/V": {
+    "message": "Info: Your wallet needs to be {whitelisted} before you can use this launchpad. Join the #cheap-goerli-validator on {ethstakerdiscordlink} to get whitelisted."
   },
   "lHiz+K": {
     "message": "Nimbus is a client implementation for both execution and consensus layers that strives to be as lightweight as possible in terms of resources used. This allows it to perform well on embedded systems, resource-restricted devices -- including Raspberry Pis -- and multi-purpose servers."

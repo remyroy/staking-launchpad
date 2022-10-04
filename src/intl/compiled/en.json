@@ -681,6 +681,12 @@
       "value": "Geth on Goerli documentation"
     }
   ],
+  "3jxyU5": [
+    {
+      "type": 0,
+      "value": "EthStaker Discord Server"
+    }
+  ],
   "3tR/V9": [
     {
       "type": 0,
@@ -4219,6 +4225,12 @@
       "value": " (the minimum allowed by the deposit contract) will max out your effective balance."
     }
   ],
+  "ewXWx4": [
+    {
+      "type": 0,
+      "value": "whitelisted"
+    }
+  ],
   "eyK2E3": [
     {
       "type": 0,
@@ -4915,6 +4927,28 @@
     {
       "type": 0,
       "value": "Outstanding deposit"
+    }
+  ],
+  "lEoE/V": [
+    {
+      "type": 0,
+      "value": "Info: Your wallet needs to be "
+    },
+    {
+      "type": 1,
+      "value": "whitelisted"
+    },
+    {
+      "type": 0,
+      "value": " before you can use this launchpad. Join the #cheap-goerli-validator on "
+    },
+    {
+      "type": 1,
+      "value": "ethstakerdiscordlink"
+    },
+    {
+      "type": 0,
+      "value": " to get whitelisted."
     }
   ],
   "lHiz+K": [
