@@ -21,7 +21,7 @@ import { DepositKeyInterface, StoreState } from '../../store/reducers';
 import { WorkflowStep } from '../../store/actions/workflowActions';
 import calculateStakingRewards from '../../utils/calculateStakingRewards';
 import {
-  PRICE_PER_VALIDATOR,
+  STAKE_PER_VALIDATOR,
   TESTNET_LAUNCHPAD_NAME,
   IS_MAINNET,
   MAINNET_LAUNCHPAD_URL,
@@ -348,7 +348,7 @@ const _CongratulationsPage = ({
                 </Heading>
                 <Text size="x-large" className="mt20">
                   <BoldGreen className="mr10" fontSize={24}>
-                    {actualTxConfirmed * +PRICE_PER_VALIDATOR} {TICKER_NAME}
+                    {actualTxConfirmed * +STAKE_PER_VALIDATOR} {TICKER_NAME}
                   </BoldGreen>
                 </Text>
               </Card>
