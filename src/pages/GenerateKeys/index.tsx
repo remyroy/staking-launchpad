@@ -125,7 +125,7 @@ const _GenerateKeysPage = ({
                 ? validatorCount
                 : new BigNumber(validatorCount)
                     .times(new BigNumber(PRICE_PER_VALIDATOR))
-                    .toFixed(1)
+                    .toFixed(4)
                     .toString()}{' '}
               {TICKER_NAME}
             </Text>

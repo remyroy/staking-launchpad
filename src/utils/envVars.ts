@@ -10,7 +10,7 @@ export const INFURA_URL                 = `https://${IS_MAINNET ? "mainnet" : EL
 
 // public
 export const NETWORK_NAME               = IS_MAINNET ? 'Mainnet' : TESTNET_LAUNCHPAD_NAME;
-export const TICKER_NAME                = IS_MAINNET ? 'ETH' : 'TestnetETH';
+export const TICKER_NAME                = IS_MAINNET ? 'ETH' : 'GoETH';
 export const ETHERSCAN_URL              = IS_MAINNET ? 'https://etherscan.io/tx' : `https://${EL_TESTNET_NAME.toLowerCase()}.etherscan.io/tx`;
 export const BEACONSCAN_URL             = IS_MAINNET ? 'https://beaconscan.com/validator' : `https://beaconscan.com/${NETWORK_NAME.toLowerCase()}/validator`;
 export const BEACONCHAIN_URL            = `https://${NETWORK_NAME.toLowerCase()}.beaconcha.in`;
