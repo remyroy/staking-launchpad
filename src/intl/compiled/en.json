@@ -63,6 +63,60 @@
       "value": "Polish"
     }
   ],
+  "+rgdao": [
+    {
+      "type": 0,
+      "value": "Depositing with this launchpad only cost "
+    },
+    {
+      "type": 1,
+      "value": "PRICE_PER_VALIDATOR"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "TICKER_NAME"
+    },
+    {
+      "type": 0,
+      "value": " per validator. This is only possible with first being "
+    },
+    {
+      "type": 1,
+      "value": "whitelisted"
+    },
+    {
+      "type": 0,
+      "value": " on the #cheap-goerli-validator channel on "
+    },
+    {
+      "type": 1,
+      "value": "ethstakerdiscordlink"
+    },
+    {
+      "type": 0,
+      "value": ". Depositing for a validator normally cost "
+    },
+    {
+      "type": 1,
+      "value": "STAKE_PER_VALIDATOR"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "TICKER_NAME"
+    },
+    {
+      "type": 0,
+      "value": " per validator."
+    }
+  ],
   "+wJuhm": [
     {
       "type": 0,
@@ -2559,6 +2613,28 @@
       "value": " isn't a valid deposit_data JSON file. Try again."
     }
   ],
+  "NBoPbx": [
+    {
+      "type": 0,
+      "value": "Info: Your wallet needs to be "
+    },
+    {
+      "type": 1,
+      "value": "whitelisted"
+    },
+    {
+      "type": 0,
+      "value": " before you can use this launchpad. Join the #cheap-goerli-validator channel on "
+    },
+    {
+      "type": 1,
+      "value": "ethstakerdiscordlink"
+    },
+    {
+      "type": 0,
+      "value": " to get whitelisted."
+    }
+  ],
   "NEmnAV": [
     {
       "type": 0,
@@ -4927,28 +5003,6 @@
     {
       "type": 0,
       "value": "Outstanding deposit"
-    }
-  ],
-  "lEoE/V": [
-    {
-      "type": 0,
-      "value": "Info: Your wallet needs to be "
-    },
-    {
-      "type": 1,
-      "value": "whitelisted"
-    },
-    {
-      "type": 0,
-      "value": " before you can use this launchpad. Join the #cheap-goerli-validator on "
-    },
-    {
-      "type": 1,
-      "value": "ethstakerdiscordlink"
-    },
-    {
-      "type": 0,
-      "value": " to get whitelisted."
     }
   ],
   "lHiz+K": [

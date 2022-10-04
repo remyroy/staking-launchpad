@@ -11,6 +11,7 @@ import { DepositKeyInterface, StoreState } from '../../store/reducers';
 import { Heading } from '../../components/Heading';
 import { Paper } from '../../components/Paper';
 import { Text } from '../../components/Text';
+import { Alert } from '../../components/Alert';
 import { Button } from '../../components/Button';
 import { Link } from '../../components/Link';
 import { routesEnum } from '../../Routes';
@@ -33,6 +34,12 @@ import {
   WorkflowStep,
 } from '../../store/actions/workflowActions';
 import { routeToCorrectWorkflowStep } from '../../utils/RouteToCorrectWorkflowStep';
+
+import {
+  PRICE_PER_VALIDATOR,
+  TICKER_NAME,
+  STAKE_PER_VALIDATOR,
+} from '../../utils/envVars';
 
 // Prop definitions
 interface OwnProps {}
@@ -146,6 +153,29 @@ const _TransactionsPage = ({
     <WorkflowPageTemplate
       title={formatMessage({ defaultMessage: 'Transactions' })}
     >
+      <Alert variant="info" className="my20">
+        <FormattedMessage
+          defaultMessage="Depositing with this launchpad only cost {PRICE_PER_VALIDATOR} {TICKER_NAME}
+                          per validator. This is only possible with first being {whitelisted} on the 
+                          #cheap-goerli-validator channel on {ethstakerdiscordlink}. Depositing for a validator
+                          normally cost {STAKE_PER_VALIDATOR} {TICKER_NAME} per validator."
+          values={{
+            PRICE_PER_VALIDATOR: PRICE_PER_VALIDATOR,
+            TICKER_NAME: TICKER_NAME,
+            whitelisted: (
+              <strong>
+                <FormattedMessage defaultMessage="whitelisted" />
+              </strong>
+            ),
+            STAKE_PER_VALIDATOR: STAKE_PER_VALIDATOR,
+            ethstakerdiscordlink: (
+              <Link to="https://discord.io/ethstaker" inline>
+                <FormattedMessage defaultMessage="EthStaker Discord Server" />
+              </Link>
+            ),
+          }}
+        />
+      </Alert>
       <Paper className="mt20">
         <Heading level={3} size="small" color="blueMedium">
           {depositKeys.length === 1 ? (

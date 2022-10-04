@@ -12,7 +12,9 @@ export const EthStakerNotification = (): JSX.Element => {
   return (
     <StyledAlert variant="primary" round="none" pad="small">
       <FormattedMessage
-        defaultMessage="Info: Your wallet needs to be {whitelisted} before you can use this launchpad. Join the #cheap-goerli-validator on {ethstakerdiscordlink} to get whitelisted."
+        defaultMessage="Info: Your wallet needs to be {whitelisted} before you 
+                        can use this launchpad. Join the #cheap-goerli-validator 
+                        channel on {ethstakerdiscordlink} to get whitelisted."
         values={{
           ethstakerdiscordlink: (
             <Link to="https://discord.io/ethstaker" inline>
