@@ -1,16 +1,18 @@
 export const IS_MAINNET                 = Boolean(process.env.REACT_APP_IS_MAINNET !== 'false');  // If REACT_APP_IS_MAINNET is unset, set it to true by default
-export const TESTNET_LAUNCHPAD_NAME     = process.env.REACT_APP_TESTNET_LAUNCHPAD_NAME || 'Goerli';
+export const ITERATION_NUMBER           = process.env.REACT_APP_TESTNET_ITERATION || '';
+export const TESTNET_LAUNCHPAD_NAME     = (process.env.REACT_APP_TESTNET_LAUNCHPAD_NAME || 'Goerli') + (ITERATION_NUMBER !== '' ? ` (Iteration ${ITERATION_NUMBER})` : '');
 export const EL_TESTNET_NAME            = process.env.REACT_APP_EL_TESTNET_NAME || 'Goerli';
 
 // private vars (or derived from)
 export const PORTIS_DAPP_ID             = process.env.REACT_APP_PORTIS_DAPP_ID     || '';
 export const INFURA_PROJECT_ID          = process.env.REACT_APP_INFURA_PROJECT_ID  || '';
-export const ENABLE_RPC_FEATURES        = Boolean(INFURA_PROJECT_ID && INFURA_PROJECT_ID !== '');
+export const ENABLE_RPC_FEATURES        = Boolean(process.env.REACT_APP_RPC_ENABLED !== 'false' || (INFURA_PROJECT_ID && INFURA_PROJECT_ID !== ''));
 export const INFURA_URL                 = `https://${IS_MAINNET ? "mainnet" : EL_TESTNET_NAME.toLowerCase()}.infura.io/v3/${INFURA_PROJECT_ID}`;
+export const RPC_URL                    = process.env.REACT_APP_RPC_URL || INFURA_URL || '';
 
 // public
 export const NETWORK_NAME               = IS_MAINNET ? 'Mainnet' : TESTNET_LAUNCHPAD_NAME;
-export const TICKER_NAME                = IS_MAINNET ? 'ETH' : 'TestnetETH';
+export const TICKER_NAME                = IS_MAINNET ? 'ETH' : `${EL_TESTNET_NAME} ETH`;
 export const ETHERSCAN_URL              = IS_MAINNET ? 'https://etherscan.io/tx' : `https://${EL_TESTNET_NAME.toLowerCase()}.etherscan.io/tx`;
 export const BEACONSCAN_URL             = IS_MAINNET ? 'https://beaconscan.com/validator' : `https://beaconscan.com/${NETWORK_NAME.toLowerCase()}/validator`;
 export const BEACONCHAIN_URL            = `https://${NETWORK_NAME.toLowerCase()}.beaconcha.in`;
@@ -25,6 +27,12 @@ export const MAINNET_LAUNCHPAD_URL      = 'https://launchpad.ethereum.org/'
 export const TESTNET_LAUNCHPAD_URL      = `https://${TESTNET_LAUNCHPAD_NAME.toLowerCase()}.launchpad.ethereum.org/`
 export const FAUCET_URL                 = process.env.REACT_APP_FAUCET_URL || 'https://faucet.goerli.mudit.blog'
 export const TUTORIAL_URL               = process.env.REACT_APP_TUTORIAL_URL || null;
+
+if(process.env.REACT_APP_CHAIN_ID && Number.isNaN(Number(process.env.REACT_APP_CHAIN_ID))) {
+    throw new Error("REACT_APP_CHAIN_ID must be of type: number")
+}
+
+export const CHAIN_ID                   = Number(process.env.REACT_APP_CHAIN_ID) || 1337525;
 
 if(process.env.REACT_APP_ETH_REQUIREMENT && Number.isNaN(Number(process.env.REACT_APP_ETH_REQUIREMENT))) {
     throw new Error("REACT_APP_ETH_REQUIREMENT must be of type: number")

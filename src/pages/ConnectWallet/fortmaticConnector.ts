@@ -5,13 +5,6 @@
 
 import { ConnectorUpdate } from '@web3-react/types';
 import { AbstractConnector } from '@web3-react/abstract-connector';
-import invariant from 'tiny-invariant';
-
-const chainIdToNetwork: { [network: number]: string } = {
-  1: 'mainnet',
-  3: 'ropsten',
-  5: 'goerli',
-};
 
 interface FortmaticConnectorArguments {
   apiKey: string;
@@ -29,10 +22,6 @@ export class FortmaticConnector extends AbstractConnector {
   public fortmatic: any;
 
   constructor({ apiKey, chainId, rpcUrl }: FortmaticConnectorArguments) {
-    invariant(
-      Object.keys(chainIdToNetwork).includes(chainId.toString()),
-      `Unsupported chainId ${chainId}`
-    );
     super({ supportedChainIds: [chainId] });
 
     this.apiKey = apiKey;
