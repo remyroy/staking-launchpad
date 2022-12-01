@@ -3,14 +3,12 @@ import {
   InjectedConnector,
   InjectedConnector as MetamaskConnector,
 } from '@web3-react/injected-connector';
-import { PortisConnector } from '@web3-react/portis-connector';
 import { useWeb3React } from '@web3-react/core';
 import { FortmaticConnector } from './fortmaticConnector';
 import { web3ReactInterface } from './index';
 import {
   FORTMATIC_KEY,
   IS_MAINNET,
-  PORTIS_DAPP_ID,
   RPC_URL,
   EL_TESTNET_NAME,
   CHAIN_ID,
@@ -20,6 +18,7 @@ export enum NetworkChainId {
   'Mainnet' = 1,
   'Ropsten' = 3,
   'Goerli' = 5,
+  'Ephemery' = CHAIN_ID,
 }
 
 /*
@@ -31,11 +30,13 @@ const supportedNetworks = [
   NetworkChainId.Mainnet,
   NetworkChainId.Ropsten,
   NetworkChainId.Goerli,
+  NetworkChainId.Ephemery,
 ];
 
 enum Testnet {
   'Ropsten',
   'Goerli',
+  'Ephemery',
 }
 
 enum Mainnet {
@@ -63,11 +64,6 @@ export const AllowedNetworks = IS_MAINNET ? Mainnet : Testnet;
 
 export const metamask: InjectedConnector = new MetamaskConnector({
   supportedChainIds: supportedNetworks,
-});
-
-export const portis: PortisConnector = new PortisConnector({
-  dAppId: PORTIS_DAPP_ID,
-  networks: supportedNetworks,
 });
 
 export const fortmatic: FortmaticConnector = new FortmaticConnector({

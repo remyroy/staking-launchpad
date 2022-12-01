@@ -17,7 +17,6 @@ import {
   fortmatic,
   metamask,
   NetworkChainId,
-  portis,
   useMetamaskEagerConnect,
   useMetamaskListener,
 } from './web3Utils';
@@ -29,7 +28,6 @@ import { Link } from '../../components/Link';
 import { Text } from '../../components/Text';
 import { WalletButton } from './WalletButton';
 import metamaskLogo from '../../static/metamask.svg';
-import portisLogo from '../../static/portis.svg';
 import fortmaticLogo from '../../static/fortmatic.svg';
 import { Paper } from '../../components/Paper';
 import { Heading } from '../../components/Heading';
@@ -40,7 +38,6 @@ import {
   WorkflowStep,
 } from '../../store/actions/workflowActions';
 import {
-  PORTIS_DAPP_ID,
   ENABLE_RPC_FEATURES,
   IS_MAINNET,
   PRICE_PER_VALIDATOR,
@@ -269,7 +266,6 @@ const _ConnectWalletPage = ({
   const getWalletName = (provider?: AbstractConnector) => {
     if (!provider) return '';
     if (provider === metamask) return 'Metamask';
-    if (provider === portis) return 'Portis';
     if (provider === fortmatic) return 'Fortmatic';
     return '';
   };
@@ -444,16 +440,6 @@ const _ConnectWalletPage = ({
                 walletProvider={metamask}
                 title="Metamask"
                 error={walletProvider === metamask ? error : undefined}
-              />
-
-              <WalletButton
-                invalid={PORTIS_DAPP_ID === ''}
-                selectedWallet={selectedWallet}
-                setSelectedWallet={setSelectedWallet}
-                logoSource={portisLogo}
-                walletProvider={portis}
-                title="Portis"
-                error={walletProvider === portis ? error : undefined}
               />
 
               <WalletButton

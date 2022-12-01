@@ -11,14 +11,12 @@ import {
   fortmatic,
   metamask,
   NetworkChainId,
-  portis,
 } from '../../ConnectWallet/web3Utils';
 import { WalletButton } from '../../ConnectWallet/WalletButton';
 import { web3ReactInterface } from '../../ConnectWallet';
 import metamaskLogo from '../../../static/metamask.svg';
 import closeGlyph from '../../../static/close.svg';
-import { ENABLE_RPC_FEATURES, PORTIS_DAPP_ID } from '../../../utils/envVars';
-import portisLogo from '../../../static/portis.svg';
+import { ENABLE_RPC_FEATURES } from '../../../utils/envVars';
 import fortmaticLogo from '../../../static/fortmatic.svg';
 import { Heading } from '../../../components/Heading';
 import { Text } from '../../../components/Text';
@@ -111,15 +109,6 @@ const WalletConnectModal: React.FC<{
           walletProvider={metamask}
           title="Metamask"
           error={connector === metamask ? error : undefined}
-        />
-        <WalletButton
-          invalid={PORTIS_DAPP_ID === ''}
-          selectedWallet={selectedWallet}
-          setSelectedWallet={setSelectedWallet}
-          logoSource={portisLogo}
-          walletProvider={portis}
-          title="Portis"
-          error={connector === portis ? error : undefined}
         />
 
         <WalletButton
