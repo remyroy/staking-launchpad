@@ -81,7 +81,9 @@ export const ActionButton = ({
   if (transactionStatus === TransactionStatus.STARTED) {
     return (
       <div className="flex">
-        <ButtonLink to={`${ETHERSCAN_URL}/${txHash}`}>Etherscan</ButtonLink>
+        <ButtonLink to={`${ETHERSCAN_URL}/${txHash}`}>
+          Transaction explorer
+        </ButtonLink>
       </div>
     );
   }
