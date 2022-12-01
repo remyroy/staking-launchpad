@@ -8,11 +8,7 @@ import {
   DepositStatus,
   TransactionStatus,
 } from '../../../store/actions/depositFileActions';
-import {
-  BEACONCHAIN_URL,
-  BEACONSCAN_URL,
-  ETHERSCAN_URL,
-} from '../../../utils/envVars';
+import { BEACONCHAIN_URL, ETHERSCAN_URL } from '../../../utils/envVars';
 import ReactTooltip from 'react-tooltip';
 
 const Container = styled.div`
@@ -108,8 +104,6 @@ export const ActionButton = ({
           </ButtonLink>
         </span>
         <ReactTooltip id="beaconchain-warning" place="top" effect="solid" />
-
-        <ButtonLink to={`${BEACONSCAN_URL}/0x${pubkey}`}>Beaconscan</ButtonLink>
       </div>
     );
   }

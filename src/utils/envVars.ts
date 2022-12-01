@@ -13,9 +13,8 @@ export const RPC_URL                    = process.env.REACT_APP_RPC_URL || INFUR
 // public
 export const NETWORK_NAME               = IS_MAINNET ? 'Mainnet' : TESTNET_LAUNCHPAD_NAME;
 export const TICKER_NAME                = IS_MAINNET ? 'ETH' : `${EL_TESTNET_NAME} ETH`;
-export const ETHERSCAN_URL              = IS_MAINNET ? 'https://etherscan.io/tx' : `https://${EL_TESTNET_NAME.toLowerCase()}.etherscan.io/tx`;
-export const BEACONSCAN_URL             = IS_MAINNET ? 'https://beaconscan.com/validator' : `https://beaconscan.com/${NETWORK_NAME.toLowerCase()}/validator`;
-export const BEACONCHAIN_URL            = `https://${NETWORK_NAME.toLowerCase()}.beaconcha.in`;
+export const ETHERSCAN_URL              = 'https://explorer.ephemery.pk910.de/tx';
+export const BEACONCHAIN_URL            = 'https://beaconchain.ephemery.pk910.de';
 export const FORTMATIC_KEY              = process.env.REACT_APP_FORTMATIC_KEY       || 'pk_test_D113D979E0D3508F';
 export const CONTRACT_ADDRESS           = IS_MAINNET ? '0x00000000219ab540356cBB839Cbe05303d7705Fa' : process.env.REACT_APP_CONTRACT_ADDRESS;
 export const MIN_DEPOSIT_CLI_VERSION    = process.env.REACT_APP_MIN_DEPOSIT_CLI_VERSION  || '1.0.0';
