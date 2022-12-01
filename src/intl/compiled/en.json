@@ -489,6 +489,20 @@
       "value": "Follow the instructions presented to you in the application to generate your keys."
     }
   ],
+  "2IIQiY": [
+    {
+      "type": 0,
+      "value": "Check "
+    },
+    {
+      "type": 1,
+      "value": "etherscan"
+    },
+    {
+      "type": 0,
+      "value": " for more details"
+    }
+  ],
   "2PI6Di": [
     {
       "type": 0,
@@ -3181,20 +3195,6 @@
     {
       "type": 0,
       "value": "greater than 50%"
-    }
-  ],
-  "UJMct0": [
-    {
-      "type": 0,
-      "value": "Check "
-    },
-    {
-      "type": 1,
-      "value": "etherscan"
-    },
-    {
-      "type": 0,
-      "value": " for more details"
     }
   ],
   "UUDnWR": [

@@ -192,6 +192,10 @@
   "2Hk0nB": {
     "message": "Follow the instructions presented to you in the application to generate your keys."
   },
+  "2IIQiY": {
+    "description": "{etherscan} is a share link to this transaction on the explorer",
+    "message": "Check {etherscan} for more details"
+  },
   "2PI6Di": {
     "message": "Consensus Clients: {clientName}"
   },
@@ -1247,10 +1251,6 @@
   },
   "U7AOxj": {
     "message": "greater than 50%"
-  },
-  "UJMct0": {
-    "description": "{etherscan} is a share link to this transaction on etherscan.io, labeled 'Etherscan'",
-    "message": "Check {etherscan} for more details"
   },
   "UUDnWR": {
     "message": "Shanghai Planning (GitHub issue)"

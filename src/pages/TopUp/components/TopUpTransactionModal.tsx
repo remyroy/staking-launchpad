@@ -67,11 +67,11 @@ const TopUpTransactionModal: React.FC<TopUpTransactionModalProps> = ({
               values={{
                 etherscan: (
                   <Link primary inline to={`${ETHERSCAN_URL}/${txHash}`}>
-                    Etherscan
+                    Transaction explorer
                   </Link>
                 ),
               }}
-              description="{etherscan} is a share link to this transaction on etherscan.io, labeled 'Etherscan'"
+              description="{etherscan} is a share link to this transaction on the explorer"
             />
           </Text>
         )}
