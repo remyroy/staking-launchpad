@@ -50,6 +50,11 @@ const ButtonContainer = styled.div`
   gap: 10px;
 `;
 
+const StyledPre = styled.pre`
+  display: inline;
+  font-weight: bold;
+`;
+
 // Prop definitions
 interface OwnProps {}
 interface StateProps {
@@ -181,6 +186,19 @@ const _TransactionsPage = ({
               <Link to="https://discord.io/ethstaker" inline>
                 <FormattedMessage defaultMessage="EthStaker Discord Server" />
               </Link>
+            ),
+          }}
+        />
+      </Alert>
+      <Alert variant="error" className="my20">
+        <FormattedMessage
+          defaultMessage="Warning: When creating your validator keys and your deposit file for this
+                          launchpad, you need to use {faucetaddress} as your withdrawal address."
+          values={{
+            faucetaddress: (
+              <StyledPre>
+                <FormattedMessage defaultMessage="0x4D496CcC28058B1D74B7a19541663E21154f9c84" />
+              </StyledPre>
             ),
           }}
         />
