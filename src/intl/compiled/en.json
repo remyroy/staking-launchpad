@@ -1803,6 +1803,20 @@
       "value": " to the Beacon Chain is one-way, and non-reversible."
     }
   ],
+  "B7jGe6": [
+    {
+      "type": 0,
+      "value": "Warning: When creating your validator keys and your deposit file for this launchpad, you need to use "
+    },
+    {
+      "type": 1,
+      "value": "faucetaddress"
+    },
+    {
+      "type": 0,
+      "value": " as your withdrawal address. This is only required for this launchpad. When on Mainnet, you should use a withdrawal address you control if you want to use one."
+    }
+  ],
   "BCsPjJ": [
     {
       "type": 0,
@@ -3935,20 +3949,6 @@
     {
       "type": 0,
       "value": "Summary"
-    }
-  ],
-  "RvREPC": [
-    {
-      "type": 0,
-      "value": "Warning: When creating your validator keys and your deposit file for this launchpad, you need to use "
-    },
-    {
-      "type": 1,
-      "value": "faucetaddress"
-    },
-    {
-      "type": 0,
-      "value": " as your withdrawal address."
     }
   ],
   "Ryptmy": [

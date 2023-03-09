@@ -37,7 +37,10 @@ export const EthStakerNotification = (): JSX.Element => {
       </StyledAlert>
       <StyledAlert variant="error" round="none" pad="small">
         <FormattedMessage
-          defaultMessage="Warning: When creating your validator keys and your deposit file for this launchpad, you need to use {faucetaddress} as your withdrawal address."
+          defaultMessage="Warning: When creating your validator keys and your deposit file
+                          for this launchpad, you need to use {faucetaddress} as your withdrawal
+                          address. This is only required for this launchpad. When on Mainnet, you
+                          should use a withdrawal address you control if you want to use one."
           values={{
             faucetaddress: (
               <StyledPre>
