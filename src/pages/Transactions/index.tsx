@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Dispatch } from 'redux';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
@@ -40,6 +41,14 @@ import {
   TICKER_NAME,
   STAKE_PER_VALIDATOR,
 } from '../../utils/envVars';
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+  margin-top: 20px;
+  gap: 10px;
+`;
 
 // Prop definitions
 interface OwnProps {}
@@ -214,10 +223,9 @@ const _TransactionsPage = ({
         </div>
       </Paper>
 
-      <div className="flex center p30 mt20">
+      <ButtonContainer>
         <Link to={routesEnum.summaryPage}>
           <Button
-            className="mr10"
             width={100}
             label={formatMessage({ defaultMessage: 'Back' })}
           />
@@ -230,7 +238,7 @@ const _TransactionsPage = ({
             disabled={!oneTxConfirmed}
           />
         </Link>
-      </div>
+      </ButtonContainer>
     </WorkflowPageTemplate>
   );
 };

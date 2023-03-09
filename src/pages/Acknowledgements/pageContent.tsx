@@ -196,13 +196,6 @@ export const pageContent = {
         <Text size="medium" className="my10">
           <FormattedMessage defaultMessage="Transfers between validators and withdrawals aren't possible yet. Withdrawal functionality is currently a top priority, and is planned to be rolled out in the next network upgrade, known as the Shanghai upgrade." />
         </Text>
-        <Link
-          to="https://ethereum.org/en/upgrades/merge"
-          className="my10"
-          primary
-        >
-          <FormattedMessage defaultMessage="More on the merge" />
-        </Link>
         <Text size="medium" className="my10">
           <FormattedMessage
             defaultMessage="With transfers disabled for now, you won't be able to voluntarily exit
@@ -214,8 +207,8 @@ export const pageContent = {
     acknowledgementText: (
       <FormattedMessage
         defaultMessage="I understand that I {cannotTransfer} my stake for a while, and I
-          {cannotWithdraw} until the merge. I understand that if I exit, I will not be able
-          to rejoin until much later. This is a long term commitment."
+          {cannotWithdraw} until the Shanghai upgrade. I understand that if I exit, I
+          will not be able to rejoin until that time. This is a long term commitment."
         values={{
           cannotTransfer: (
             <BoldCaps>
