@@ -3937,6 +3937,20 @@
       "value": "Summary"
     }
   ],
+  "RvREPC": [
+    {
+      "type": 0,
+      "value": "Warning: When creating your validator keys and your deposit file for this launchpad, you need to use "
+    },
+    {
+      "type": 1,
+      "value": "faucetaddress"
+    },
+    {
+      "type": 0,
+      "value": " as your withdrawal address."
+    }
+  ],
   "Ryptmy": [
     {
       "type": 0,
@@ -6227,6 +6241,12 @@
     {
       "type": 0,
       "value": "Outstanding deposit"
+    }
+  ],
+  "lEEX54": [
+    {
+      "type": 0,
+      "value": "0x4D496CcC28058B1D74B7a19541663E21154f9c84"
     }
   ],
   "lHiz+K": [

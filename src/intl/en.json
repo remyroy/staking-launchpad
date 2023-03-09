@@ -1479,6 +1479,9 @@
   "RrCui3": {
     "message": "Summary"
   },
+  "RvREPC": {
+    "message": "Warning: When creating your validator keys and your deposit file for this launchpad, you need to use {faucetaddress} as your withdrawal address."
+  },
   "Ryptmy": {
     "message": "Verify it with the following command to check if it returns the client version correctly:"
   },
@@ -2406,6 +2409,9 @@
   },
   "lD66ab": {
     "message": "Outstanding deposit"
+  },
+  "lEEX54": {
+    "message": "0x4D496CcC28058B1D74B7a19541663E21154f9c84"
   },
   "lHiz+K": {
     "message": "Nimbus is a client implementation for both execution and consensus layers that strives to be as lightweight as possible in terms of resources used. This allows it to perform well on embedded systems, resource-restricted devices -- including Raspberry Pis -- and multi-purpose servers."
