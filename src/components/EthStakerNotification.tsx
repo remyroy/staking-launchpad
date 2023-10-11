@@ -23,7 +23,7 @@ export const EthStakerNotification = (): JSX.Element => {
                           channel on {ethstakerdiscordlink} to get whitelisted."
           values={{
             ethstakerdiscordlink: (
-              <Link to="https://discord.io/ethstaker" inline>
+              <Link to="https://dsc.gg/ethstaker" inline>
                 <FormattedMessage defaultMessage="EthStaker Discord Server" />
               </Link>
             ),

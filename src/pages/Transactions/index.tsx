@@ -183,7 +183,7 @@ const _TransactionsPage = ({
             ),
             STAKE_PER_VALIDATOR: STAKE_PER_VALIDATOR,
             ethstakerdiscordlink: (
-              <Link to="https://discord.io/ethstaker" inline>
+              <Link to="https://dsc.gg/ethstaker" inline>
                 <FormattedMessage defaultMessage="EthStaker Discord Server" />
               </Link>
             ),
