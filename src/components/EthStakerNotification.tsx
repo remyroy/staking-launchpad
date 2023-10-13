@@ -19,7 +19,7 @@ export const EthStakerNotification = (): JSX.Element => {
       <StyledAlert variant="primary" round="none" pad="small">
         <FormattedMessage
           defaultMessage="Info: Your wallet needs to be {whitelisted} before you 
-                          can use this launchpad. Join the #cheap-goerli-validator 
+                          can use this launchpad. Join the #cheap-holesky-validator 
                           channel on {ethstakerdiscordlink} to get whitelisted."
           values={{
             ethstakerdiscordlink: (

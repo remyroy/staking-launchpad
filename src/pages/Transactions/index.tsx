@@ -171,7 +171,7 @@ const _TransactionsPage = ({
         <FormattedMessage
           defaultMessage="Depositing with this launchpad only cost {PRICE_PER_VALIDATOR} {TICKER_NAME}
                           per validator. This is only possible with first being {whitelisted} on the 
-                          #cheap-goerli-validator channel on {ethstakerdiscordlink}. Depositing for a validator
+                          #cheap-holesky-validator channel on {ethstakerdiscordlink}. Depositing for a validator
                           normally cost {STAKE_PER_VALIDATOR} {TICKER_NAME} per validator."
           values={{
             PRICE_PER_VALIDATOR: PRICE_PER_VALIDATOR,

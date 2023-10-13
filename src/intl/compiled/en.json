@@ -69,60 +69,6 @@
       "value": "Polish"
     }
   ],
-  "+rgdao": [
-    {
-      "type": 0,
-      "value": "Depositing with this launchpad only cost "
-    },
-    {
-      "type": 1,
-      "value": "PRICE_PER_VALIDATOR"
-    },
-    {
-      "type": 0,
-      "value": " "
-    },
-    {
-      "type": 1,
-      "value": "TICKER_NAME"
-    },
-    {
-      "type": 0,
-      "value": " per validator. This is only possible with first being "
-    },
-    {
-      "type": 1,
-      "value": "whitelisted"
-    },
-    {
-      "type": 0,
-      "value": " on the #cheap-goerli-validator channel on "
-    },
-    {
-      "type": 1,
-      "value": "ethstakerdiscordlink"
-    },
-    {
-      "type": 0,
-      "value": ". Depositing for a validator normally cost "
-    },
-    {
-      "type": 1,
-      "value": "STAKE_PER_VALIDATOR"
-    },
-    {
-      "type": 0,
-      "value": " "
-    },
-    {
-      "type": 1,
-      "value": "TICKER_NAME"
-    },
-    {
-      "type": 0,
-      "value": " per validator."
-    }
-  ],
   "+vHhHz": [
     {
       "type": 0,
@@ -1421,6 +1367,28 @@
     {
       "type": 0,
       "value": "Every epoch, the network measures the actions of each validator and issues your rewards or penalties appropriately."
+    }
+  ],
+  "8+w8yg": [
+    {
+      "type": 0,
+      "value": "Info: Your wallet needs to be "
+    },
+    {
+      "type": 1,
+      "value": "whitelisted"
+    },
+    {
+      "type": 0,
+      "value": " before you can use this launchpad. Join the #cheap-holesky-validator channel on "
+    },
+    {
+      "type": 1,
+      "value": "ethstakerdiscordlink"
+    },
+    {
+      "type": 0,
+      "value": " to get whitelisted."
     }
   ],
   "8/nhr4": [
@@ -3353,28 +3321,6 @@
     {
       "type": 0,
       "value": "a few more days"
-    }
-  ],
-  "NBoPbx": [
-    {
-      "type": 0,
-      "value": "Info: Your wallet needs to be "
-    },
-    {
-      "type": 1,
-      "value": "whitelisted"
-    },
-    {
-      "type": 0,
-      "value": " before you can use this launchpad. Join the #cheap-goerli-validator channel on "
-    },
-    {
-      "type": 1,
-      "value": "ethstakerdiscordlink"
-    },
-    {
-      "type": 0,
-      "value": " to get whitelisted."
     }
   ],
   "NDrMCw": [
@@ -6689,6 +6635,60 @@
     {
       "type": 0,
       "value": "New validators (not yet deposited)"
+    }
+  ],
+  "mwWAuu": [
+    {
+      "type": 0,
+      "value": "Depositing with this launchpad only cost "
+    },
+    {
+      "type": 1,
+      "value": "PRICE_PER_VALIDATOR"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "TICKER_NAME"
+    },
+    {
+      "type": 0,
+      "value": " per validator. This is only possible with first being "
+    },
+    {
+      "type": 1,
+      "value": "whitelisted"
+    },
+    {
+      "type": 0,
+      "value": " on the #cheap-holesky-validator channel on "
+    },
+    {
+      "type": 1,
+      "value": "ethstakerdiscordlink"
+    },
+    {
+      "type": 0,
+      "value": ". Depositing for a validator normally cost "
+    },
+    {
+      "type": 1,
+      "value": "STAKE_PER_VALIDATOR"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "TICKER_NAME"
+    },
+    {
+      "type": 0,
+      "value": " per validator."
     }
   ],
   "n2Dn3F": [

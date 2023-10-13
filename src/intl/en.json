@@ -27,9 +27,6 @@
   "+ozGrs": {
     "message": "Polish"
   },
-  "+rgdao": {
-    "message": "Depositing with this launchpad only cost {PRICE_PER_VALIDATOR} {TICKER_NAME} per validator. This is only possible with first being {whitelisted} on the #cheap-goerli-validator channel on {ethstakerdiscordlink}. Depositing for a validator normally cost {STAKE_PER_VALIDATOR} {TICKER_NAME} per validator."
-  },
   "+vHhHz": {
     "message": "Validator management"
   },
@@ -486,6 +483,9 @@
   },
   "7tRtDE": {
     "message": "Every epoch, the network measures the actions of each validator and issues your rewards or penalties appropriately."
+  },
+  "8+w8yg": {
+    "message": "Info: Your wallet needs to be {whitelisted} before you can use this launchpad. Join the #cheap-holesky-validator channel on {ethstakerdiscordlink} to get whitelisted."
   },
   "8/nhr4": {
     "message": "For your validator to be capable of withdrawals of any kind, a withdrawal address must be provided and registered to your account on the Beacon Chain. This should be an address you control, and cannot be changed once set."
@@ -1275,9 +1275,6 @@
   },
   "N6QzJ5": {
     "message": "a few more days"
-  },
-  "NBoPbx": {
-    "message": "Info: Your wallet needs to be {whitelisted} before you can use this launchpad. Join the #cheap-goerli-validator channel on {ethstakerdiscordlink} to get whitelisted."
   },
   "NDrMCw": {
     "message": "Total number of validator accounts that have eligible withdrawals (variable)"
@@ -2527,6 +2524,9 @@
   },
   "muV9Fg": {
     "message": "New validators (not yet deposited)"
+  },
+  "mwWAuu": {
+    "message": "Depositing with this launchpad only cost {PRICE_PER_VALIDATOR} {TICKER_NAME} per validator. This is only possible with first being {whitelisted} on the #cheap-holesky-validator channel on {ethstakerdiscordlink}. Depositing for a validator normally cost {STAKE_PER_VALIDATOR} {TICKER_NAME} per validator."
   },
   "n2Dn3F": {
     "message": "Withdrawal queue"
