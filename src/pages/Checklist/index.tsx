@@ -395,11 +395,10 @@ export const Checklist = () => {
       discord: 'https://discord.gg/7hPv2T6',
       ...defaultConsensusPorts,
       jwtUrl:
-        'https://docs.teku.consensys.net/en/latest/HowTo/Get-Started/Connect/Connect-To-Mainnet/#1-generate-the-shared-secret',
+        'https://docs.teku.consensys.net/get-started/connect/mainnet#1-generate-the-shared-secret',
       feeRecipientUrl:
-        'https://docs.teku.consensys.net/en/latest/HowTo/Prepare-for-The-Merge/#configure-the-fee-recipient',
-      metricsUrl:
-        'https://docs.teku.consensys.net/en/latest/HowTo/Monitor/Metrics/',
+        'https://docs.teku.consensys.net/reference/cli#validators-proposer-default-fee-recipient',
+      metricsUrl: 'https://docs.teku.consensys.net/how-to/monitor/use-metrics',
     },
   ]);
 
@@ -493,7 +492,7 @@ export const Checklist = () => {
             <FormattedMessage defaultMessage="Recommendation disclaimer" />
           </Heading>
           <Text className="mt20">
-            <FormattedMessage defaultMessage="Hardware suggestions are an ever-evolving target. Current minimum requirements are likely to increase by an order of magnitude after the introduction of sharding. Do your own research before depositing funds." />
+            <FormattedMessage defaultMessage="Hardware suggestions are an ever-evolving target. Current minimum requirements are likely to increase by an order of magnitude after the introduction of Danksharding. Do your own research before depositing funds." />
           </Text>
         </Alert>
         <section>
@@ -552,7 +551,7 @@ export const Checklist = () => {
             <li className="py5">
               <Text>
                 <FormattedMessage
-                  defaultMessage="Ethereum had its genesis on July 30, 2015. It is growing in size over time, and the introduction of sharding will also increase storage, memory, and bandwidth requirements."
+                  defaultMessage="Ethereum had its genesis on July 30, 2015. It is growing in size over time, and the introduction of Danksharding will also increase storage, memory, and bandwidth requirements."
                   values={{
                     date: (
                       <FormattedDate
@@ -1159,8 +1158,8 @@ export const Checklist = () => {
                 </Text>
                 <Text className="checkbox-label mb10">
                   <FormattedMessage
-                    defaultMessage="If not, I've submitted a {btec} message signed with my BLS withdrawal keys to update my withdrawal credentials (requires Shanghai/Capella upgrade)."
-                    values={{ btec: <Code>BLS_To_Execution_Change</Code> }}
+                    defaultMessage="If not, I've submitted a {btec} message signed with my BLS withdrawal keys to update my withdrawal credentials."
+                    values={{ btec: <Code>BLSToExecutionChange</Code> }}
                   />
                 </Text>
               </div>

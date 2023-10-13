@@ -10,6 +10,8 @@ import { Link } from '../../components/Link';
 import { PageTemplate } from '../../components/PageTemplate';
 import { Text } from '../../components/Text';
 import { Code } from '../../components/Code';
+// Constants
+import { NETWORK_NAME } from '../../utils/envVars';
 
 const ComponentStyles = styled.div`
   * {
@@ -55,8 +57,10 @@ const CodeBlock = styled.code`
   }
   .custom {
     color: ${(p: any) => p.theme.red.medium};
+    text-transform: uppercase;
   }
 `;
+
 const SectionTitle = styled(Heading)`
   margin-top: 30px;
   border-bottom: 1px solid lightgray;
@@ -139,32 +143,23 @@ export const BtecGuide = () => {
           <Text className="mb10">
             <FormattedMessage
               defaultMessage="To enable your Beacon Chain validator(s) to automatically withdraw balances to your
-              {exeuctionAddress}, you can use the {cli} tool to generate the {signed} message JSON file. This message
-              includes the request to change your old BLS withdrawal credentials to the new withdrawal credentials in
-              execution address format."
+              {executionAddress}, you can use the staking deposit CLI tool to generate the signed “BLS To Execution
+              Change” ({signed}) message JSON file. This message includes the request to change your old BLS
+              withdrawal credentials to the new withdrawal credentials in execution address format."
               values={{
-                exeuctionAddress: (
+                executionAddress: (
                   <strong>
                     <FormattedMessage defaultMessage="execution layer (Eth1) address" />
                   </strong>
                 ),
-                cli: <Code>staking-deposit-cli</Code>,
                 signed: <Code>SignedBLSToExecutionChange</Code>,
               }}
             />
           </Text>
           <Text className="mb10">
             <FormattedMessage
-              defaultMessage="To make this message to be included in Mainnet, you will need to upload this message to
-              a beacon node’s {signature} pool {after} Capella/Shanghai hard fork."
-              values={{
-                signature: <Code>SignedBLSToExecutionChange</Code>,
-                after: (
-                  <strong>
-                    <FormattedMessage defaultMessage="after" />
-                  </strong>
-                ),
-              }}
+              defaultMessage="To include this message on Mainnet, you will need to upload this message to
+              a beacon node’s message “Signed BLS To Execution Change” pool."
             />
           </Text>
         </section>
@@ -188,9 +183,9 @@ export const BtecGuide = () => {
                     <Link
                       primary
                       inline
-                      to="https://github.com/ethereum/staking-deposit-cli/pull/313"
+                      to="https://github.com/ethereum/staking-deposit-cli/releases"
                     >
-                      <FormattedMessage defaultMessage="PR description" />
+                      <FormattedMessage defaultMessage="Staking Deposit CLI releases" />
                     </Link>
                   ),
                 }}
@@ -205,13 +200,12 @@ export const BtecGuide = () => {
             </Anchor>
             <Text className="mb10">
               <FormattedMessage
-                defaultMessage="Download {btec} branch:"
-                values={{ btec: <Code>bls-to-execution-change</Code> }}
+                defaultMessage="Download {master} branch:"
+                values={{ master: <Code>master</Code> }}
               />
             </Text>
             <CodeBlock>
-              git clone -b bls-to-execution-change
-              git@github.com:ethereum/staking-deposit-cli.git
+              git clone https://github.com/ethereum/staking-deposit-cli.git
             </CodeBlock>
             <Text className="mb10">
               <FormattedMessage defaultMessage="Install and set virtualenv:" />
@@ -324,36 +318,57 @@ export const BtecGuide = () => {
                 <br />
                 <span className="dimmed">
                   --mnemonic="
-                  <span className="custom">{`<YOUR MNEMONIC>`}</span>" \
+                  <span className="custom">
+                    {`<`}
+                    <FormattedMessage defaultMessage="Your mnemonic" />
+                    {`>`}
+                  </span>
+                  " \
                 </span>
                 <br />
                 <span className="dimmed">
                   --bls_withdrawal_credentials_list="
-                  <span className="custom">{`<YOUR OLD BLS WITHDRAWAL>`}</span>"
-                  \
+                  <span className="custom">
+                    {`<`}
+                    <FormattedMessage defaultMessage="Your old BLS withdrawal credentials" />
+                    {`>`}
+                  </span>
+                  " \
                 </span>
                 <br />
                 <span className="dimmed">
                   --validator_start_index=
-                  <span className="custom">{`<THE KEY START INDEX IN EIP-2334>`}</span>{' '}
+                  <span className="custom">
+                    {`<`}
+                    <FormattedMessage defaultMessage="The key start index in EIP-2334" />
+                    {`>`}
+                  </span>{' '}
                   \
                 </span>
                 <br />
                 <span className="dimmed">
                   --validator_indices="
-                  <span className="custom">{`<YOUR VALIDATOR INDICES>`}</span>"
-                  \
+                  <span className="custom">
+                    {`<`}
+                    <FormattedMessage defaultMessage="Your validator indices" />
+                    {`>`}
+                  </span>
+                  " \
                 </span>
                 <br />
                 <span className="dimmed">
                   --execution_address="
-                  <span className="custom">{`<THE EXECUTION ADDRESS FOR WITHDRAWALS>`}</span>
+                  <span className="custom">
+                    {`<`}
+                    <FormattedMessage defaultMessage="The execution address for withdrawals" />
+                    {`>`}
+                  </span>
                   "
                 </span>
                 <br />
               </CodeBlock>
               <Text className="mb10">
-                <FormattedMessage defaultMessage="[Example]" />
+                [<FormattedMessage defaultMessage="Example" />]
               </Text>
               <CodeBlock className="indent">
                 <span>
@@ -424,36 +439,57 @@ export const BtecGuide = () => {
                 <br />
                 <span className="dimmed">
                   --mnemonic="
-                  <span className="custom">{`<YOUR MNEMONIC>`}</span>" \
+                  <span className="custom">
+                    {`<`}
+                    <FormattedMessage defaultMessage="Your mnemonic" />
+                    {`>`}
+                  </span>
+                  " \
                 </span>
                 <br />
                 <span className="dimmed">
                   --bls_withdrawal_credentials_list="
-                  <span className="custom">{`<YOUR OLD BLS WITHDRAWAL>`}</span>"
-                  \
+                  <span className="custom">
+                    {`<`}
+                    <FormattedMessage defaultMessage="Your old BLS withdrawal credentials" />
+                    {`>`}
+                  </span>
+                  " \
                 </span>
                 <br />
                 <span className="dimmed">
                   --validator_start_index=
-                  <span className="custom">{`<THE KEY START INDEX IN EIP-2334>`}</span>
-                  {` `} \
-                </span>
-                <br />
-                <span className="dimmed">
-                  --validator_indices="
-                  <span className="custom">{`<YOUR VALIDATOR INDICES>`}</span>"
+                  <span className="custom">
+                    {`<`}
+                    <FormattedMessage defaultMessage="The key start index in EIP-2334" />
+                    {`>`}
+                  </span>{' '}
                   \
                 </span>
                 <br />
                 <span className="dimmed">
+                  --validator_indices="
+                  <span className="custom">
+                    {`<`}
+                    <FormattedMessage defaultMessage="Your validator indices" />
+                    {`>`}
+                  </span>
+                  " \
+                </span>
+                <br />
+                <span className="dimmed">
                   --execution_address="
-                  <span className="custom">{`<THE EXECUTION ADDRESS FOR WITHDRAWALS>`}</span>
+                  <span className="custom">
+                    {`<`}
+                    <FormattedMessage defaultMessage="The execution address for withdrawals" />
+                    {`>`}
+                  </span>
                   "
                 </span>
                 <br />
               </CodeBlock>
               <Text className="mb10">
-                <FormattedMessage defaultMessage="[Example]" />
+                [<FormattedMessage defaultMessage="Example" />]
               </Text>
               <CodeBlock className="indent">
                 <span>
@@ -494,11 +530,25 @@ export const BtecGuide = () => {
                 </Text>
                 <CodeBlock>
                   <span>
-                    {`--devnet_chain_setting='{
-                       "network_name": "<NETWORK_NAME>",
-                       "genesis_fork_version": "<GENESIS_FORK_VERSION>",
-                       "genesis_validator_root": "<GENESIS_VALIDATOR_ROOT>"
-                    }'`}
+                    {`--devnet_chain_setting='{ "network_name": "`}
+                    <span className="custom">
+                      {`<`}
+                      <FormattedMessage defaultMessage="Network name" />
+                      {`>`}
+                    </span>
+                    ", "genesis_fork_version": "
+                    <span className="custom">
+                      {`<`}
+                      <FormattedMessage defaultMessage="Genesis fork version" />
+                      {`>`}
+                    </span>
+                    ", "genesis_validator_root": "
+                    <span className="custom">
+                      {`<`}
+                      <FormattedMessage defaultMessage="Genesis validator root" />
+                      {`>`}
+                    </span>
+                    {`" }'`}
                   </span>
                 </CodeBlock>
                 <Text className="mb10">
@@ -570,15 +620,37 @@ export const BtecGuide = () => {
               />
             </SectionTitle>
           </Anchor>
+          <Text className="my20">
+            <FormattedMessage
+              defaultMessage="You can broadcast your signed message from the command line using the {curl} command:"
+              values={{
+                curl: <Code>curl</Code>,
+              }}
+            />
+          </Text>
           <CodeBlock className="indent">
             <span>
               curl -X POST -H “Content-type: application/json” -d @
-              <span className="custom">{`<@FILENAME DESTINATION>`}</span>
+              <span className="custom">
+                {`<@${formatMessage({
+                  defaultMessage: 'Filename destination',
+                })}>`}
+              </span>
               {` `}\
             </span>
             <br />
             <span>{`http://<BEACON_NODE_HTTP_API_URL>/eth/v1/beacon/pool/bls_to_execution_changes`}</span>
           </CodeBlock>
+          <Text className="my20">
+            <FormattedMessage defaultMessage="You can also use the Beaconcha.in broadcasting tool to upload your message using a web user interface:" />
+          </Text>
+          <Link
+            primary
+            to={`https://${NETWORK_NAME.toLowerCase()}.beaconcha.in/tools/broadcast`}
+            className="cta-button"
+          >
+            <FormattedMessage defaultMessage="Beaconcha.in Broadcast Tool" />
+          </Link>
         </section>
       </ComponentStyles>
     </PageTemplate>

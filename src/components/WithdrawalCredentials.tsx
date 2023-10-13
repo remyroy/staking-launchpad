@@ -1,7 +1,7 @@
 // Import libraries
 import React, { FC, useState, ChangeEvent } from 'react';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import CopyToClipboard from 'react-copy-to-clipboard';
 // Components
 import { Alert } from './Alert';
@@ -274,6 +274,7 @@ const ResultText: React.FC<ResultTextProps> = ({
 
 interface IProps {}
 export const WithdrawalCredentials: FC<IProps> = () => {
+  const { formatMessage } = useIntl();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
@@ -287,7 +288,9 @@ export const WithdrawalCredentials: FC<IProps> = () => {
     try {
       const response = await fetch(endpoint);
       const { data } = await response.json();
-      const withdrawalCredentials = data.withdrawalcredentials;
+      const withdrawalCredentials = data.length
+        ? data[0].withdrawalcredentials
+        : data.withdrawalcredentials;
       setValidator({
         validatorIndex: parseInt(inputValue, 10),
         withdrawalCredentials,
@@ -310,7 +313,7 @@ export const WithdrawalCredentials: FC<IProps> = () => {
           id="validatorIndex"
           value={inputValue}
           onChange={handleChange}
-          placeholder="Validator index"
+          placeholder={formatMessage({ defaultMessage: 'Validator index' })}
         />
         <StyledButton
           label={

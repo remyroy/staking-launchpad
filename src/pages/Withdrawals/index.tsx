@@ -1,9 +1,7 @@
-// Import libraries
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { HashLink as Anchor } from 'react-router-hash-link';
 import styled from 'styled-components';
-// Components
 import { Alert } from '../../components/Alert';
 import { Heading } from '../../components/Heading';
 import { Link } from '../../components/Link';
@@ -11,6 +9,11 @@ import { PageTemplate } from '../../components/PageTemplate';
 import { Text } from '../../components/Text';
 import { Code } from '../../components/Code';
 import { WithdrawalsTabComparison } from '../../components/WithdrawalsTabComparison';
+import {
+  NETWORK_NAME,
+  PRICE_PER_VALIDATOR,
+  TICKER_NAME,
+} from '../../utils/envVars';
 
 const ComponentStyles = styled.div`
   * {
@@ -32,7 +35,7 @@ const ComponentStyles = styled.div`
     margin-bottom: 10px;
     &.key-types {
       padding-inline-start: 1em;
-      li span {
+      li > span {
         margin-inline-start: 0.5em;
       }
       li:nth-of-type(1) {
@@ -62,10 +65,6 @@ const ComponentStyles = styled.div`
   .inline {
     display: inline;
   }
-`;
-
-const HashCode = styled(Code)`
-  word-break: break-all;
 `;
 
 const SectionTitle = styled(Heading)`
@@ -105,6 +104,10 @@ const TableContainer = styled.div`
       border-top: 2px solid #dee2e6;
     }
   }
+`;
+
+const EmojiPrefix = styled.span`
+  margin-inline-end: 10px;
 `;
 
 export const Withdrawals = () => {
@@ -208,6 +211,23 @@ export const Withdrawals = () => {
                   />
                 </li>
               </ul>
+              <Text className="mt20">
+                <FormattedMessage
+                  defaultMessage="Note that your {withdrawalCredentials} are not the same as your {feeRecipient}, which receives transaction fees from proposed blocks. These can both be set to the same address, but must each be set separately."
+                  values={{
+                    withdrawalCredentials: (
+                      <strong>
+                        <FormattedMessage defaultMessage="withdrawal credentials" />
+                      </strong>
+                    ),
+                    feeRecipient: (
+                      <strong>
+                        <FormattedMessage defaultMessage="fee recipient" />
+                      </strong>
+                    ),
+                  }}
+                />
+              </Text>
             </section>
 
             <section className="actionable">
@@ -218,7 +238,17 @@ export const Withdrawals = () => {
                 <li>
                   <strong>Staking Deposit CLI</strong> -{' '}
                   <Link inline primary to="/btec/">
-                    Launchpad walkthrough tutorial
+                    <FormattedMessage defaultMessage="Launchpad walkthrough tutorial" />
+                  </Link>
+                </li>
+                <li>
+                  <strong>Wagyu Key Gen GUI</strong> -{' '}
+                  <Link
+                    inline
+                    primary
+                    to="https://www.youtube.com/watch?v=EMQoVtxNaxo"
+                  >
+                    <FormattedMessage defaultMessage="Adding a withdrawal address with Wagyu Key Gen" />
                   </Link>
                 </li>
                 <li>
@@ -228,12 +258,26 @@ export const Withdrawals = () => {
                     primary
                     to="https://github.com/wealdtech/ethdo/blob/master/docs/changingwithdrawalcredentials.md"
                   >
-                    Changing withdrawal credentials
+                    <FormattedMessage defaultMessage="Changing withdrawal credentials" />
                   </Link>
                 </li>
               </ul>
               <Text className="my20">
-                <FormattedMessage defaultMessage="These tools will assist you in generating the necessary keys and message to sign. Signed messages can be broadcast for inclusion into blocks starting with the Shanghai/Capella upgrade." />
+                <FormattedMessage
+                  defaultMessage="These tools will assist you in generating the necessary keys and message to sign.
+                  Signed messages can then be {broadcastLink} into blocks."
+                  values={{
+                    broadcastLink: (
+                      <Link
+                        primary
+                        inline
+                        to={`https://${NETWORK_NAME.toLowerCase()}.beaconcha.in/tools/broadcast`}
+                      >
+                        broadcast for inclusion
+                      </Link>
+                    ),
+                  }}
+                />
               </Text>
               <Alert variant="error">
                 <Text>
@@ -257,8 +301,9 @@ export const Withdrawals = () => {
                 </Heading>
                 <Text className="mb10">
                   <FormattedMessage
-                    defaultMessage="One of the queues worth noting is a queue that limits how many BLS ({type0})
-                    withdrawal addresses can be updated to an execution address ({type1}) during a given block."
+                    defaultMessage="BLS withdrawal credentials ({type0}) can be updated to an execution address ({type1})
+                    by broadcasting a BLS To Execution Change (BTEC) message, signed with your BLS withdrawal key. These
+                    messages are included in blocks at a max rate of 16 per block."
                     values={{
                       type0: <Code>0x00</Code>,
                       type1: <Code>0x01</Code>,
@@ -267,30 +312,9 @@ export const Withdrawals = () => {
                 </Text>
                 <Text className="mb10">
                   <FormattedMessage
-                    defaultMessage="As noted above, this step is completed by signing a message known as {message}.
-                    These are accepted into blocks as of the first slot after the Shanghai/Capella
-                    upgrade."
-                    values={{ message: <Code>BLS_To_Execution_Change</Code> }}
-                  />
-                </Text>
-                <Text className="mb10">
-                  <FormattedMessage
-                    defaultMessage="These messages are limited to 16 per block ({message}), so if more than 16
-                    requests are being made at one time, a queue will be formed and these will be processed in
-                    subsequent blocks. This means that immediately following the Shanghai/Capella upgrade, users
-                    submitting this message may see delays up to an estimated 2-3 days before this request
-                    is processed."
-                    values={{
-                      message: <Code>MAX_BLS_TO_EXECUTION_CHANGES</Code>,
-                    }}
-                  />
-                </Text>
-                <Text className="mb10">
-                  <FormattedMessage
-                    defaultMessage="Fortunately, this is only a one-time message that needs to be processed, and
-                    validators who provided withdrawal credentials at time of deposit are exempt from this step. Once
-                    completed, your validator is permanently enabled for withdrawals, and will be eligible for payouts
-                    during the next sweep."
+                    defaultMessage="If more than 16 requests are being made at one time, a
+                    queue will be formed and these will be processed in subsequent blocks. Once completed, your validator
+                    is permanently enabled for withdrawals, and will be eligible for payouts during the next sweep."
                   />
                 </Text>
               </section>
@@ -309,18 +333,29 @@ export const Withdrawals = () => {
             <Text className="mb10">
               <FormattedMessage
                 defaultMessage="An {excessBalanceWithdrawal} is processed when an active validator has a maxed out
-                effective balance of 32, and has a total balance over 32. A single validator cannot
-                get rewards on excess balance over 32 ETH, and thus these accounts will have
+                effective balance of {PRICE_PER_VALIDATOR} {TICKER_NAME}, and has a total balance over {PRICE_PER_VALIDATOR} {TICKER_NAME}.
+                A single validator cannot get rewards on excess balance over {PRICE_PER_VALIDATOR} {TICKER_NAME}, and thus these accounts will have
                 any extra balance automatically withdrawn to their Ethereum address."
                 values={{
                   excessBalanceWithdrawal: (
-                    <strong>excess balance withdrawal</strong>
+                    <strong>
+                      <FormattedMessage defaultMessage="excess balance withdrawal" />
+                    </strong>
                   ),
+                  PRICE_PER_VALIDATOR,
+                  TICKER_NAME,
                 }}
               />
             </Text>
             <Text className="mb10">
-              <FormattedMessage defaultMessage="These are also referred to as “partial withdrawals” or “reward payments” as the remaining 32 ETH stays locked and staked." />
+              <FormattedMessage
+                defaultMessage="These are also referred to as “partial withdrawals” or “reward payments” as the remaining
+                {PRICE_PER_VALIDATOR} {TICKER_NAME} stays locked and staked."
+                values={{
+                  PRICE_PER_VALIDATOR,
+                  TICKER_NAME,
+                }}
+              />
             </Text>
             <Alert variant="warning" className="mt30">
               <span role="img" aria-label="note">
@@ -341,7 +376,13 @@ export const Withdrawals = () => {
             <Text className="mb10">
               <FormattedMessage
                 defaultMessage="A {fullWithdrawal} is processed for any inactivated validators that are no longer considered to be staking, that have fully exited from their validation responsibilities. Thus for a validator to fully withdraw its balance, it must first complete the process of exiting."
-                values={{ fullWithdrawal: <strong>full withdrawal</strong> }}
+                values={{
+                  fullWithdrawal: (
+                    <strong>
+                      <FormattedMessage defaultMessage="full withdrawal" />
+                    </strong>
+                  ),
+                }}
               />
             </Text>
 
@@ -385,7 +426,10 @@ export const Withdrawals = () => {
                     inline
                     to="https://lighthouse-book.sigmaprime.io/voluntary-exit.html"
                   >
-                    Exiting a Lighthouse validator
+                    <FormattedMessage
+                      defaultMessage="Exiting a {client} validator"
+                      values={{ client: 'Lighthouse' }}
+                    />
                   </Link>
                 </li>
                 <li>
@@ -394,7 +438,10 @@ export const Withdrawals = () => {
                     inline
                     to="https://chainsafe.github.io/lodestar/reference/cli/#validator-voluntary-exit"
                   >
-                    Exiting a Lodestar validator
+                    <FormattedMessage
+                      defaultMessage="Exiting a {client} validator"
+                      values={{ client: 'Lodestar' }}
+                    />
                   </Link>
                 </li>
                 <li>
@@ -403,7 +450,10 @@ export const Withdrawals = () => {
                     inline
                     to="https://nimbus.guide/voluntary-exit.html"
                   >
-                    Exiting a Nimbus validator
+                    <FormattedMessage
+                      defaultMessage="Exiting a {client} validator"
+                      values={{ client: 'Nimbus' }}
+                    />
                   </Link>
                 </li>
                 <li>
@@ -412,7 +462,10 @@ export const Withdrawals = () => {
                     inline
                     to="https://docs.prylabs.network/docs/wallet/exiting-a-validator"
                   >
-                    Exiting a Prysm validator
+                    <FormattedMessage
+                      defaultMessage="Exiting a {client} validator"
+                      values={{ client: 'Prysm' }}
+                    />
                   </Link>
                 </li>
                 <li>
@@ -421,7 +474,10 @@ export const Withdrawals = () => {
                     inline
                     to="https://docs.teku.consensys.net/Reference/CLI/Subcommands/Voluntary-Exit"
                   >
-                    Exiting a Teku validator
+                    <FormattedMessage
+                      defaultMessage="Exiting a {client} validator"
+                      values={{ client: 'Teku' }}
+                    />
                   </Link>
                 </li>
               </ul>
@@ -437,7 +493,10 @@ export const Withdrawals = () => {
                     inline
                     to="https://forum.dappnode.io/t/how-to-exit-an-eth2-validator/786"
                   >
-                    Exiting a DAppNode validator
+                    <FormattedMessage
+                      defaultMessage="Exiting a {software} validator"
+                      values={{ software: 'DAppNode' }}
+                    />
                   </Link>
                 </li>
                 <li>
@@ -446,7 +505,10 @@ export const Withdrawals = () => {
                     inline
                     to="https://eth-docker.net/Support/Exit/"
                   >
-                    Exiting an eth-docker validator
+                    <FormattedMessage
+                      defaultMessage="Exiting a {software} validator"
+                      values={{ software: 'eth-docker' }}
+                    />
                   </Link>
                 </li>
                 <li>
@@ -455,7 +517,11 @@ export const Withdrawals = () => {
                     inline
                     to="https://docs.rocketpool.net/guides/node/cli-intro.html#minipool-commands"
                   >
-                    Exiting a Rocket Pool minipool
+                    <FormattedMessage
+                      defaultMessage="Exiting a {software} minipool"
+                      values={{ software: 'Rocket Pool' }}
+                      description="A minipool is a Rocket Pool-specific term for a validator that shares stake with others"
+                    />
                   </Link>
                 </li>
               </ul>
@@ -488,7 +554,7 @@ export const Withdrawals = () => {
                 instantaneous, and depends on how many other accounts are exiting at the same time."
               />
             </Text>
-            <Alert variant="warning" className="mt30">
+            <Alert variant="warning" className="my30">
               <span role="img" aria-label="note">
                 📝
               </span>{' '}
@@ -496,6 +562,9 @@ export const Withdrawals = () => {
                 <FormattedMessage defaultMessage="Validators still need to complete their validation duties until they are exited" />
               </Text>
             </Alert>
+            <Text className="mb10">
+              <FormattedMessage defaultMessage="Once a validator has exited and its full balance has been withdrawn, any additional funds deposited to that validator will automatically be transferred to the withdrawal address during the next validator sweep. To re-stake ETH, a new validator must be activated." />
+            </Text>
           </section>
         </section>
 
@@ -576,12 +645,17 @@ export const Withdrawals = () => {
                 again from the beginning. At each validator along the way, the account is evaluated for potential withdrawals."
               />
             </Text>
-            <Alert variant="warning" className="mt30 mb10">
+            <Alert variant="warning" className="my30">
               <Text className="mb10">
-                <span role="img" aria-label="note" className="mr10">
-                  📝
-                </span>
-                <FormattedMessage defaultMessage="Note the “withdrawal” and “BLS-to-execution” queues are independent and do not compete. Each are limited on a per-block basis." />
+                <EmojiPrefix>
+                  <span role="img" aria-label="note">
+                    📝
+                  </span>
+                </EmojiPrefix>
+                <FormattedMessage
+                  defaultMessage="Note the “withdrawal” and “BLS To Execution Change” queues are independent and
+                  do not compete. Each are limited on a per-block basis."
+                />
               </Text>
             </Alert>
           </section>
@@ -616,8 +690,8 @@ export const Withdrawals = () => {
               <FormattedMessage
                 defaultMessage="Similarly, there is also an {exitQueue}, which limits how quickly validators can
                 {leave} the network. This is for security reasons. Given each validator is limited to a max effective
-                balance of 32 ETH, this prevents large portions of the ETH from potentially being used in an attack
-                and then quickly exiting from the network all at once."
+                balance of {PRICE_PER_VALIDATOR} {TICKER_NAME}, this prevents large portions of the ETH from potentially
+                being used in an attack and then quickly exiting from the network all at once."
                 values={{
                   exitQueue: (
                     <strong>
@@ -629,6 +703,8 @@ export const Withdrawals = () => {
                       <FormattedMessage defaultMessage="leave" />
                     </em>
                   ),
+                  PRICE_PER_VALIDATOR,
+                  TICKER_NAME,
                 }}
               />
             </Text>
@@ -641,14 +717,17 @@ export const Withdrawals = () => {
             <Text className="mb10">
               <FormattedMessage
                 defaultMessage="Four (4) validator exits are allowed per epoch, plus one (1) more for every 65,536 total active validators
-                over 327,680. As of February 2023 this limit is seven (7), and will increase to eight (8) if/when the validator count reaches 524,288."
+                over 327,680. As of April 2023 this limit is eight (8), and will increase to nine (9) if/when the active validator count
+                reaches 655,360."
               />
             </Text>
-            <Alert variant="warning" className="mt30 mb10">
+            <Alert variant="warning" className="my30">
               <Text className="mb10">
-                <span role="img" aria-label="note" className="mr10">
-                  📝
-                </span>{' '}
+                <EmojiPrefix>
+                  <span role="img" aria-label="note">
+                    📝
+                  </span>
+                </EmojiPrefix>
                 <FormattedMessage defaultMessage="Note the “activation” and “exit” queues are independent and do not compete. Each are limited on a per-epoch basis." />
               </Text>
             </Alert>
@@ -776,8 +855,7 @@ export const Withdrawals = () => {
                 </li>
               </ul>
               <Text className="mb10">
-                This timing of this last step is variable depending on validator
-                index, current sweep position, and number of validators.{' '}
+                <FormattedMessage defaultMessage="This timing of this last step is variable depending on validator index, current sweep position, and number of validators." />{' '}
                 <Link inline primary to="#payout-frequency">
                   <FormattedMessage defaultMessage="More on frequency of payouts below." />
                 </Link>
@@ -840,7 +918,10 @@ export const Withdrawals = () => {
                 </ul>
               </li>
               <li>
-                <FormattedMessage defaultMessage="Is the effective balance maxed out at 32?" />
+                <FormattedMessage
+                  defaultMessage="Is the effective balance maxed out at {PRICE_PER_VALIDATOR} {TICKER_NAME}?"
+                  values={{ PRICE_PER_VALIDATOR, TICKER_NAME }}
+                />
                 <ul>
                   <li>
                     <FormattedMessage
@@ -883,17 +964,21 @@ export const Withdrawals = () => {
           </section>
           <ol>
             <li>
-              <FormattedMessage defaultMessage="Rate-limits set on withdrawal queue (could change through testing before Shanghai)" />
+              <FormattedMessage defaultMessage="Rate-limits set on withdrawal queue" />
               <ul>
                 <li>
-                  <HashCode>MAX_WITHDRAWALS_PER_PAYLOAD: 16 (2⁴)</HashCode>
+                  <FormattedMessage
+                    defaultMessage="Max withdrawals per payload: 16 (2{exp})"
+                    values={{ exp: <sup>4</sup> }}
+                  />
                   <br />
                   <FormattedMessage defaultMessage="Maximum number of withdrawals that can be processed in a single block" />
                 </li>
                 <li>
-                  <HashCode>
-                    MAX_VALIDATORS_PER_WITHDRAWALS_SWEEP: 16,384 (2¹⁴)
-                  </HashCode>
+                  <FormattedMessage
+                    defaultMessage="Max validators per withdrawals sweep: 16,384 (2{exp})"
+                    values={{ exp: <sup>14</sup> }}
+                  />
                   <br />
                   <FormattedMessage
                     defaultMessage="Maximum number of accounts that can be checked in a block. Stops when 16
@@ -917,7 +1002,10 @@ export const Withdrawals = () => {
                   <FormattedMessage defaultMessage="Accounts that have fully withdrawn and have a zero balance will be skipped" />
                 </li>
                 <li>
-                  <FormattedMessage defaultMessage="Active accounts with an effective balance or total balance less than 32 will be skipped" />
+                  <FormattedMessage
+                    defaultMessage="Active accounts with an effective balance or total balance less than {PRICE_PER_VALIDATOR} {TICKER_NAME} will be skipped"
+                    values={{ PRICE_PER_VALIDATOR, TICKER_NAME }}
+                  />
                 </li>
               </ul>
             </li>
@@ -991,14 +1079,9 @@ export const Withdrawals = () => {
               <Link
                 primary
                 inline
-                to="https://notes.ethereum.org/@launchpad/zhejiang"
+                to="https://notes.ethereum.org/@launchpad/goerli"
               >
                 <FormattedMessage defaultMessage="How to join the public withdrawals testnet" />
-              </Link>
-            </li>
-            <li>
-              <Link primary inline to="https://github.com/ethereum/pm/issues">
-                <FormattedMessage defaultMessage="Community calls - announced in the PM repo" />
               </Link>
             </li>
             <li>
@@ -1008,15 +1091,6 @@ export const Withdrawals = () => {
                 to="https://ethstaker.gitbook.io/ethstaker-knowledge-base/"
               >
                 <FormattedMessage defaultMessage="EthStaker Knowledge Base" />
-              </Link>
-            </li>
-            <li>
-              <Link
-                primary
-                inline
-                to="https://github.com/benjaminchodroff/ConsensusLayerWithdrawalProtection"
-              >
-                <FormattedMessage defaultMessage="Consensus Layer Withdrawal Protection" />
               </Link>
             </li>
           </ul>
