@@ -681,12 +681,6 @@
       "value": "excess balance withdrawal"
     }
   ],
-  "2iH8Zc": [
-    {
-      "type": 0,
-      "value": "Nimbus key management documentation"
-    }
-  ],
   "2rflCq": [
     {
       "type": 0,
@@ -1063,6 +1057,12 @@
       "value": "learnMore"
     }
   ],
+  "5CdqwI": [
+    {
+      "type": 0,
+      "value": "Nimbus beacon node documentation"
+    }
+  ],
   "5H/J84": [
     {
       "type": 0,
@@ -1161,6 +1161,12 @@
     {
       "type": 0,
       "value": "leave"
+    }
+  ],
+  "6NyPVb": [
+    {
+      "type": 0,
+      "value": "Nimbus is a client implementation for both execution and consensus layers that strives to be as lightweight as possible in terms of resources used. This allows it to perform well on embedded systems, resource-restricted devices—including Raspberry Pis—and multi-purpose servers."
     }
   ],
   "6S95Bo": [
@@ -4315,12 +4321,6 @@
       "value": "This became a requirement at time of The Merge, so be sure you're running both before staking."
     }
   ],
-  "V0cb8p": [
-    {
-      "type": 0,
-      "value": "If you do not have a testnet folder it is likely you have not built and run Nimbus correctly. Run the make commands again."
-    }
-  ],
   "VASo1/": [
     {
       "type": 0,
@@ -5963,6 +5963,12 @@
       "value": "I've joined my execution client's Discord server."
     }
   ],
+  "iXbM1G": [
+    {
+      "type": 0,
+      "value": "If you do not have a testnet folder it is likely you have not built and run Nimbus correctly. Run the make command again."
+    }
+  ],
   "iZuIgB": [
     {
       "type": 0,
@@ -6115,6 +6121,12 @@
     {
       "type": 0,
       "value": "Documentation on running Geth"
+    }
+  ],
+  "jmKQY9": [
+    {
+      "type": 0,
+      "value": "Nimbus validator documentation"
     }
   ],
   "jp9OG2": [
@@ -6383,12 +6395,6 @@
     {
       "type": 0,
       "value": "0x4D496CcC28058B1D74B7a19541663E21154f9c84"
-    }
-  ],
-  "lHiz+K": [
-    {
-      "type": 0,
-      "value": "Nimbus is a client implementation for both execution and consensus layers that strives to be as lightweight as possible in terms of resources used. This allows it to perform well on embedded systems, resource-restricted devices -- including Raspberry Pis -- and multi-purpose servers."
     }
   ],
   "lLOZMD": [
