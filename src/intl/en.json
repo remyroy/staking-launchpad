@@ -264,6 +264,9 @@
   "2ebz/N": {
     "message": "excess balance withdrawal"
   },
+  "2qVLAJ": {
+    "message": "various Holesky faucets"
+  },
   "2rflCq": {
     "message": "Client diversity is extremely important for the network health of Ethereum: A bug in a client with a share of over 33% can cause Ethereum to go offline. If the client has a supermajority (>66%), a bug could cause the chain to incorrectly split, potentially leading to slashing."
   },
@@ -1889,6 +1892,9 @@
   "acrOoz": {
     "message": "Continue"
   },
+  "aneCxN": {
+    "message": "the official Holesky Launchpad"
+  },
   "aozN2h": {
     "message": "See your consensus client documentation for client-specific instructions on how to set this."
   },
@@ -2026,6 +2032,9 @@
   },
   "dVJcJt": {
     "message": "{stakingDepositCli}: This is done by using the “eth1 withdrawal address” ({eth1WithdrawalAddress}) flag when generating your keys with the Staking Deposit CLI."
+  },
+  "dcd4jt": {
+    "message": "Info: If you already have 32 Holesky ETH, you can simply use {officialholeskylink}. Getting 32 Holesky ETH can be done using {holeskyfaucetlink}."
   },
   "deLJOg": {
     "message": "Upload a valid json file."

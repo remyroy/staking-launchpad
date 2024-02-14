@@ -681,6 +681,12 @@
       "value": "excess balance withdrawal"
     }
   ],
+  "2qVLAJ": [
+    {
+      "type": 0,
+      "value": "various Holesky faucets"
+    }
+  ],
   "2rflCq": [
     {
       "type": 0,
@@ -4979,6 +4985,12 @@
       "value": "Continue"
     }
   ],
+  "aneCxN": [
+    {
+      "type": 0,
+      "value": "the official Holesky Launchpad"
+    }
+  ],
   "aozN2h": [
     {
       "type": 0,
@@ -5305,6 +5317,28 @@
     {
       "type": 0,
       "value": ") flag when generating your keys with the Staking Deposit CLI."
+    }
+  ],
+  "dcd4jt": [
+    {
+      "type": 0,
+      "value": "Info: If you already have 32 Holesky ETH, you can simply use "
+    },
+    {
+      "type": 1,
+      "value": "officialholeskylink"
+    },
+    {
+      "type": 0,
+      "value": ". Getting 32 Holesky ETH can be done using "
+    },
+    {
+      "type": 1,
+      "value": "holeskyfaucetlink"
+    },
+    {
+      "type": 0,
+      "value": "."
     }
   ],
   "deLJOg": [

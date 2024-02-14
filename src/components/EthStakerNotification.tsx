@@ -50,6 +50,23 @@ export const EthStakerNotification = (): JSX.Element => {
           }}
         />
       </StyledAlert>
+      <StyledAlert variant="primary" round="none" pad="small">
+        <FormattedMessage
+          defaultMessage="Info: If you already have 32 Holesky ETH, you can simply use {officialholeskylink}. Getting 32 Holesky ETH can be done using {holeskyfaucetlink}."
+          values={{
+            officialholeskylink: (
+              <Link to="https://holesky.launchpad.ethereum.org/" inline>
+                <FormattedMessage defaultMessage="the official Holesky Launchpad" />
+              </Link>
+            ),
+            holeskyfaucetlink: (
+              <Link to="https://faucetlink.to/holesky" inline>
+                <FormattedMessage defaultMessage="various Holesky faucets" />
+              </Link>
+            ),
+          }}
+        />
+      </StyledAlert>
     </>
   );
 };
