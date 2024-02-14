@@ -1769,6 +1769,36 @@
       "value": "For devnet, you can add a param:"
     }
   ],
+  "AEl550": [
+    {
+      "type": 0,
+      "value": "Info: If you already have "
+    },
+    {
+      "type": 1,
+      "value": "amount"
+    },
+    {
+      "type": 0,
+      "value": ", you can simply use "
+    },
+    {
+      "type": 1,
+      "value": "officialholeskylink"
+    },
+    {
+      "type": 0,
+      "value": ". Getting 32 Holesky ETH can be done using "
+    },
+    {
+      "type": 1,
+      "value": "holeskyfaucetlink"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
   "AFzWcM": [
     {
       "type": 0,
@@ -5319,28 +5349,6 @@
       "value": ") flag when generating your keys with the Staking Deposit CLI."
     }
   ],
-  "dcd4jt": [
-    {
-      "type": 0,
-      "value": "Info: If you already have 32 Holesky ETH, you can simply use "
-    },
-    {
-      "type": 1,
-      "value": "officialholeskylink"
-    },
-    {
-      "type": 0,
-      "value": ". Getting 32 Holesky ETH can be done using "
-    },
-    {
-      "type": 1,
-      "value": "holeskyfaucetlink"
-    },
-    {
-      "type": 0,
-      "value": "."
-    }
-  ],
   "deLJOg": [
     {
       "type": 0,
@@ -5711,6 +5719,12 @@
     {
       "type": 0,
       "value": "More on the Beacon Chain"
+    }
+  ],
+  "ghDsOP": [
+    {
+      "type": 0,
+      "value": "32 Holesky ETH"
     }
   ],
   "gjBiyj": [

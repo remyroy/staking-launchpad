@@ -636,6 +636,9 @@
   "AEbKyt": {
     "message": "For devnet, you can add a param:"
   },
+  "AEl550": {
+    "message": "Info: If you already have {amount}, you can simply use {officialholeskylink}. Getting 32 Holesky ETH can be done using {holeskyfaucetlink}."
+  },
   "AFzWcM": {
     "message": "I understand that keys are my responsibility and that my mnemonic (seed) will be the {onlyWay} to withdraw my funds if I don't provide a withdrawal address with initial deposit data."
   },
@@ -2033,9 +2036,6 @@
   "dVJcJt": {
     "message": "{stakingDepositCli}: This is done by using the “eth1 withdrawal address” ({eth1WithdrawalAddress}) flag when generating your keys with the Staking Deposit CLI."
   },
-  "dcd4jt": {
-    "message": "Info: If you already have 32 Holesky ETH, you can simply use {officialholeskylink}. Getting 32 Holesky ETH can be done using {holeskyfaucetlink}."
-  },
   "deLJOg": {
     "message": "Upload a valid json file."
   },
@@ -2168,6 +2168,9 @@
   },
   "gfLdAQ": {
     "message": "More on the Beacon Chain"
+  },
+  "ghDsOP": {
+    "message": "32 Holesky ETH"
   },
   "gjBiyj": {
     "message": "Loading..."
