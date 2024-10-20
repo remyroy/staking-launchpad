@@ -11,17 +11,21 @@ import { PrysmDetails } from '../Clients/Consensus/Prysm';
 import { LighthouseDetails } from '../Clients/Consensus/Lighthouse';
 import { TekuDetails } from '../Clients/Consensus/Teku';
 import { NimbusDetails } from '../Clients/Consensus/Nimbus';
+import { LodestarDetails } from '../Clients/Consensus/Lodestar';
 import { GethDetails } from '../Clients/Execution/Geth';
 import { BesuDetails } from '../Clients/Execution/Besu';
 import { NethermindDetails } from '../Clients/Execution/Nethermind';
+import { RethDetails } from '../Clients/Execution/Reth';
 import { ErigonDetails } from '../Clients/Execution/Erigon';
 import PrysmaticCircle from '../../static/prysmatic-labs-circle.png';
 import LighthouseCircle from '../../static/lighthouse-circle.png';
 import NimbusCircle from '../../static/nimbus-circle.png';
+import LodestarCircle from '../../static/lodestar-circle.png';
 import TekuCircle from '../../static/pegasys-teku-circle.png';
 import GethCircle from '../../static/gethereum-mascot-circle.png';
 import BesuCircle from '../../static/hyperledger-besu-circle.png';
 import NethermindCircle from '../../static/nethermind-circle.png';
+import RethCircle from '../../static/reth-circle.png';
 import ErigonCircle from '../../static/erigon-circle.png';
 
 import {
@@ -55,9 +59,11 @@ const clientDetails = {
   [ClientId.LIGHTHOUSE]: <LighthouseDetails shortened />,
   [ClientId.PRYSM]: <PrysmDetails shortened />,
   [ClientId.NIMBUS]: <NimbusDetails shortened />,
+  [ClientId.LODESTAR]: <LodestarDetails shortened />,
   [ClientId.GETH]: <GethDetails />,
   [ClientId.BESU]: <BesuDetails />,
   [ClientId.NETHERMIND]: <NethermindDetails />,
+  [ClientId.RETH]: <RethDetails />,
   [ClientId.ERIGON]: <ErigonDetails />,
 };
 
@@ -92,6 +98,12 @@ const ethClients: {
       language: 'C#, .NET',
     },
     {
+      clientId: ClientId.RETH,
+      name: 'Reth',
+      imgUrl: RethCircle,
+      language: 'Rust',
+    },
+    {
       clientId: ClientId.ERIGON,
       name: 'Erigon',
       imgUrl: ErigonCircle,
@@ -122,6 +134,12 @@ const ethClients: {
       name: 'Nimbus',
       imgUrl: NimbusCircle,
       language: 'Nim',
+    },
+    {
+      clientId: ClientId.LODESTAR,
+      name: 'Lodestar',
+      imgUrl: LodestarCircle,
+      language: 'TypeScript',
     },
   ]),
 };
@@ -212,14 +230,12 @@ const _SelectClientPage = ({
         clientDetails={clientDetails}
         ethClientStep={ethClientStep}
       />
-      <div className="flex center p30">
-        <SelectClientButtons
-          updateStep={setEthClientStep}
-          ethClientStep={ethClientStep}
-          handleSubmit={handleSubmit}
-          currentClient={selectedClient}
-        />
-      </div>
+      <SelectClientButtons
+        updateStep={setEthClientStep}
+        ethClientStep={ethClientStep}
+        handleSubmit={handleSubmit}
+        currentClient={selectedClient}
+      />
     </WorkflowPageTemplate>
   );
 };

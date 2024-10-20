@@ -5,10 +5,12 @@ export enum ClientId {
   'ERIGON' = 'ERIGON',
   'GETH' = 'GETH',
   'NETHERMIND' = 'NETHERMIND',
+  'RETH' = 'RETH',
   'LIGHTHOUSE' = 'LIGHTHOUSE',
   'NIMBUS' = 'NIMBUS',
   'PRYSM' = 'PRYSM',
   'TEKU' = 'TEKU',
+  'LODESTAR' = 'LODESTAR',
 }
 
 export interface UpdateClientAction {

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FormNextLink } from 'grommet-icons';
+import { FormNextLink, FormPreviousLink } from 'grommet-icons';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Text } from '../../../components/Text';
 import { Link } from '../../../components/Link';
@@ -8,7 +8,12 @@ import {
   DepositStatus,
   TransactionStatus,
 } from '../../../store/actions/depositFileActions';
-import { BEACONCHAIN_URL, ETHERSCAN_URL } from '../../../utils/envVars';
+import {
+  BEACONCHAIN_URL,
+  BEACONSCAN_URL,
+  EL_TRANSACTION_URL,
+  IS_NON_INFURA_TESTNET,
+} from '../../../utils/envVars';
 import ReactTooltip from 'react-tooltip';
 
 const Container = styled.div`
@@ -53,7 +58,11 @@ export const ActionButton = ({
   onClick,
   pubkey,
 }: Props) => {
-  const { formatMessage } = useIntl();
+  const { locale, formatMessage } = useIntl();
+  const formArrowLink = React.useMemo(
+    () => (locale === 'ar' ? <FormPreviousLink /> : <FormNextLink />),
+    [locale]
+  );
 
   if (depositStatus === DepositStatus.ALREADY_DEPOSITED) {
     return (
@@ -81,8 +90,8 @@ export const ActionButton = ({
   if (transactionStatus === TransactionStatus.STARTED) {
     return (
       <div className="flex">
-        <ButtonLink to={`${ETHERSCAN_URL}/${txHash}`}>
-          Transaction explorer
+        <ButtonLink to={`${EL_TRANSACTION_URL}/${txHash}`}>
+          EL Explorer
         </ButtonLink>
       </div>
     );
@@ -106,17 +115,27 @@ export const ActionButton = ({
           </ButtonLink>
         </span>
         <ReactTooltip id="beaconchain-warning" place="top" effect="solid" />
+        {!IS_NON_INFURA_TESTNET && (
+          // Probably no Bellatrix beaconscan explorer
+          <ButtonLink to={`${BEACONSCAN_URL}/0x${pubkey}`}>
+            Beaconscan
+          </ButtonLink>
+        )}
       </div>
     );
   }
 
-  if (transactionStatus === TransactionStatus.REJECTED) {
+  if (
+    [TransactionStatus.REJECTED, TransactionStatus.LEDGER_ERROR].includes(
+      transactionStatus
+    )
+  ) {
     return (
       <Container onClick={onClick}>
         <ButtonText>
           <FormattedMessage defaultMessage="Try again" />
         </ButtonText>
-        <FormNextLink />
+        {formArrowLink}
       </Container>
     );
   }

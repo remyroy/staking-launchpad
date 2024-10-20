@@ -9,17 +9,23 @@ import { web3ReactInterface } from './index';
 import {
   FORTMATIC_KEY,
   IS_MAINNET,
+  NETWORK_NAME,
+  PORTIS_DAPP_ID,
   RPC_URL,
-  EL_TESTNET_NAME,
-  CHAIN_ID,
+  TESTNET_LAUNCHPAD_NAME,
 } from '../../utils/envVars';
 
 export enum NetworkChainId {
   'Mainnet' = 1,
-  'Ropsten' = 3,
-  'Goerli' = 5,
-  'Ephemery' = CHAIN_ID,
+  'Sepolia' = 11155111,
+  'Holesky' = 17000,
 }
+
+export const NetworkChainIdDict: { [id: string]: number } = {
+  Mainnet: 1,
+  Sepolia: 11155111,
+  Holesky: 17000,
+};
 
 /*
   for UI purposes, all networks are "supported", but an error message
@@ -28,15 +34,16 @@ export enum NetworkChainId {
 
 const supportedNetworks = [
   NetworkChainId.Mainnet,
-  NetworkChainId.Ropsten,
-  NetworkChainId.Goerli,
-  NetworkChainId.Ephemery,
+  NetworkChainId.Sepolia,
+  NetworkChainId.Holesky,
 ];
 
+// FIXME: disabled Portis for now
+const portisSupportedNetworks = [NetworkChainId.Mainnet];
+
 enum Testnet {
-  'Ropsten',
-  'Goerli',
-  'Ephemery',
+  'Sepolia',
+  'Holesky',
 }
 
 enum Mainnet {
@@ -44,9 +51,9 @@ enum Mainnet {
 }
 
 export const NetworkNameToChainId: { [key: string]: NetworkChainId } = {
+  Holesky: NetworkChainId.Holesky,
   Mainnet: NetworkChainId.Mainnet,
-  Ropsten: NetworkChainId.Ropsten,
-  Goerli: NetworkChainId.Goerli,
+  Sepolia: NetworkChainId.Sepolia,
 };
 
 const testnetChainID =
@@ -56,19 +63,25 @@ const testnetChainID =
 
 export const TARGET_NETWORK_CHAIN_ID = IS_MAINNET
   ? NetworkChainId.Mainnet
-  : testnetChainID;
+  : NetworkNameToChainId[TESTNET_LAUNCHPAD_NAME];
 
-export const IS_GOERLI = TARGET_NETWORK_CHAIN_ID === NetworkChainId.Goerli;
+export const IS_HOLESKY = TARGET_NETWORK_CHAIN_ID === NetworkChainId.Holesky;
 
 export const AllowedNetworks = IS_MAINNET ? Mainnet : Testnet;
 
+export const AllowedELNetworks = [NETWORK_NAME];
 export const metamask: InjectedConnector = new MetamaskConnector({
   supportedChainIds: supportedNetworks,
 });
 
+export const portis: PortisConnector = new PortisConnector({
+  dAppId: PORTIS_DAPP_ID,
+  networks: portisSupportedNetworks,
+});
+
 export const fortmatic: FortmaticConnector = new FortmaticConnector({
   apiKey: FORTMATIC_KEY as string,
-  chainId: TARGET_NETWORK_CHAIN_ID,
+  chainId: IS_MAINNET ? NetworkChainId.Mainnet : NetworkChainId.Holesky,
   rpcUrl: RPC_URL,
 });
 

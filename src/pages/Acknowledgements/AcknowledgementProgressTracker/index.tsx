@@ -12,7 +12,7 @@ import { AcknowledgementProgressStep } from './AcknowledgementProgressStep';
 
 const Container = styled.div`
   min-width: 250px;
-  margin-right: 40px;
+  margin-inline-end: 40px;
   @media only screen and (max-width: 940px) {
     display: none;
   }
@@ -44,13 +44,10 @@ export const _AcknowledgementProgressTracker = ({
       defaultMessage: 'Uptime',
     }),
     [AcknowledgementIdsEnum.slashing]: formatMessage({
-      defaultMessage: 'Bad behaviour',
+      defaultMessage: 'Bad behavior',
     }),
     [AcknowledgementIdsEnum.keyManagement]: formatMessage({
       defaultMessage: 'Key management',
-    }),
-    [AcknowledgementIdsEnum.commitment]: formatMessage({
-      defaultMessage: 'Commitment',
     }),
     [AcknowledgementIdsEnum.earlyAdoptionRisks]: formatMessage({
       defaultMessage: 'Early adoption risks',

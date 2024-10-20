@@ -13,13 +13,14 @@ import { Web3Provider } from '@ethersproject/providers';
 import { formatEther } from '@ethersproject/units';
 import { NoEthereumProviderError } from '@web3-react/injected-connector';
 import {
-  AllowedNetworks,
+  AllowedELNetworks,
   fortmatic,
   metamask,
   NetworkChainId,
   useMetamaskEagerConnect,
   useMetamaskListener,
 } from './web3Utils';
+import { Alert } from '../../components/Alert';
 import { Button } from '../../components/Button';
 import { WorkflowPageTemplate } from '../../components/WorkflowPage/WorkflowPageTemplate';
 import { DepositKeyInterface, StoreState } from '../../store/reducers';
@@ -42,6 +43,7 @@ import {
   IS_MAINNET,
   PRICE_PER_VALIDATOR,
   TICKER_NAME,
+  IS_NON_INFURA_TESTNET,
   FAUCET_URL,
 } from '../../utils/envVars';
 import { routeToCorrectWorkflowStep } from '../../utils/RouteToCorrectWorkflowStep';
@@ -61,12 +63,9 @@ const Container = styled.div`
 const WalletConnectedContainer = styled.div`
   pointer-events: none;
   width: 800px;
-  margin: auto;
-  position: absolute;
-  left: calc(50% - 400px); // center - half width
+  margin-inline: auto;
   @media only screen and (max-width: ${p => p.theme.screenSizes.large}) {
     width: 100%;
-    left: 0;
     height: 100%;
   }
 `;
@@ -101,6 +100,7 @@ const FaucetLink = styled(Link)`
 const Row = styled.div`
   display: flex;
   align-items: center;
+  gap: 10px;
 `;
 
 const Network = styled.div`
@@ -123,6 +123,7 @@ const ButtonRow = styled.div`
   width: 100%;
   justify-content: center;
   margin-top: 128px;
+  gap: 10px;
   @media only screen and (max-width: ${p => p.theme.screenSizes.large}) {
     flex-direction: column;
     align-items: center;
@@ -274,7 +275,7 @@ const _ConnectWalletPage = ({
   useEffect(() => {
     if (chainId) {
       setNetwork(NetworkChainId[chainId]);
-      setNetworkAllowed(Object.values(AllowedNetworks).includes(network));
+      setNetworkAllowed(AllowedELNetworks.includes(network));
     }
 
     if (
@@ -309,6 +310,17 @@ const _ConnectWalletPage = ({
     executionLayerName,
   ]);
 
+  const withdrawalAddress = useMemo<string>(() => {
+    // eslint-disable-next-line camelcase
+    const credentials = depositKeys[0]?.withdrawal_credentials ?? '';
+    if (credentials.startsWith('01')) return `0x${credentials.slice(-40)}`;
+    return '';
+  }, [depositKeys]);
+  const withdrawalAddressShort = useMemo<string>(
+    () => `${withdrawalAddress.slice(0, 6)}...${withdrawalAddress.slice(-4)}`,
+    [withdrawalAddress]
+  );
+
   const handleSubmit = () => {
     if (workflow === WorkflowStep.CONNECT_WALLET) {
       dispatchWorkflowUpdate(WorkflowStep.SUMMARY);
@@ -324,137 +336,167 @@ const _ConnectWalletPage = ({
       title={formatMessage({ defaultMessage: 'Connect wallet' })}
     >
       <Container>
-        <WalletConnectedContainer>
-          <Animated
-            animationIn="fadeInRight"
-            animationOut="fadeOutRight"
-            isVisible={walletConnected}
-            animateOnMount={false}
-            animationInDuration={200}
-            animationOutDuration={200}
-          >
-            <Paper pad="medium">
-              <WalletInfoContainer>
-                <Heading level={3} size="small" color="blueDark">
-                  {getWalletName(walletProvider)}
-                </Heading>
-                {account && (
-                  <Text size="medium">
-                    {`${account.slice(0, 6)}...${account.slice(-6)}`}
-                  </Text>
-                )}
-              </WalletInfoContainer>
-              <Network>
-                <Row>
-                  <Dot
-                    className="mr10"
-                    success={networkAllowed}
-                    error={!networkAllowed}
-                  />
-                  <Heading
-                    level={3}
-                    size="small"
-                    color="blueDark"
-                    className="mt0"
-                  >
-                    <FormattedMessage defaultMessage="Network" />
+        {walletConnected ? (
+          <WalletConnectedContainer>
+            <Animated
+              animationIn="fadeInRight"
+              animationOut="fadeOutRight"
+              isVisible={walletConnected}
+              animateOnMount={false}
+              animationInDuration={200}
+              animationOutDuration={200}
+            >
+              <Paper pad="medium">
+                <WalletInfoContainer>
+                  <Heading level={3} size="small" color="blueDark">
+                    {getWalletName(walletProvider)}
                   </Heading>
-                </Row>
-                <Text color={networkAllowed ? 'greenDark' : 'redMedium'}>
-                  {executionLayerName}
-                </Text>
-              </Network>
-              <div>
-                {!networkAllowed && (
+                  {account && (
+                    <Text size="medium">
+                      {`${account.slice(0, 6)}...${account.slice(-6)}`}
+                    </Text>
+                  )}
+                </WalletInfoContainer>
+                <Network>
+                  <Row>
+                    <Dot success={networkAllowed} error={!networkAllowed} />
+                    <Heading
+                      level={3}
+                      size="small"
+                      color="blueDark"
+                      className="mt0"
+                    >
+                      <FormattedMessage defaultMessage="Network" />
+                    </Heading>
+                  </Row>
+                  <Text color={networkAllowed ? 'greenDark' : 'redMedium'}>
+                    {executionLayerName}
+                  </Text>
+                </Network>
+                <div>
+                  {!networkAllowed && (
+                    <>
+                      <StatusText className="mt10">{status}</StatusText>
+                    </>
+                  )}
+                </div>
+                {networkAllowed && (
                   <>
-                    <StatusText className="mt10">{status}</StatusText>
+                    <Balance>
+                      <Row>
+                        <Dot success={!lowBalance} error={lowBalance} />
+                        <Heading level={3} size="small" color="blueDark">
+                          <FormattedMessage defaultMessage="Balance" />
+                        </Heading>
+                      </Row>
+                      <StatusText className="mt10">{status}</StatusText>
+                    </Balance>
+                    <div>
+                      {networkAllowed && lowBalance && (
+                        <>
+                          <FormattedMessage
+                            defaultMessage="You do not have enough {eth} in this account for
+                          {numberOfValidators} {validator}"
+                            values={{
+                              numberOfValidators: depositKeys.length,
+                              eth: TICKER_NAME,
+                              validator:
+                                depositKeys.length > 1
+                                  ? formatMessage({
+                                      defaultMessage: 'validators',
+                                    })
+                                  : formatMessage({
+                                      defaultMessage: 'validator',
+                                    }),
+                            }}
+                          />
+                        </>
+                      )}
+                      {!IS_MAINNET && lowBalance && (
+                        <FaucetLink to={FAUCET_URL} primary>
+                          <FormattedMessage
+                            defaultMessage="Get {TICKER_NAME}"
+                            values={{
+                              TICKER_NAME,
+                            }}
+                          />
+                        </FaucetLink>
+                      )}
+                    </div>
+                    <Alert
+                      variant={withdrawalAddress ? 'warning' : 'error'}
+                      className="mt20"
+                    >
+                      {withdrawalAddress ? (
+                        <FormattedMessage
+                          defaultMessage="The withdrawal address for these validators will be set to {withdrawalAddress}.
+                        Make 100% sure you control this address before depositing, as this cannot be changed."
+                          values={{
+                            withdrawalAddress: (
+                              <span title={withdrawalAddress}>
+                                {withdrawalAddressShort}
+                              </span>
+                            ),
+                          }}
+                        />
+                      ) : (
+                        <FormattedMessage
+                          defaultMessage="A withdrawal address has not been set for these validators.
+                        Staked funds and rewards will remain locked until withdrawal credentials are provided."
+                        />
+                      )}
+                    </Alert>
                   </>
                 )}
-              </div>
-              {networkAllowed && (
-                <>
-                  <Balance>
-                    <Row>
-                      <Dot
-                        className="mr10"
-                        success={!lowBalance}
-                        error={lowBalance}
-                      />
-                      <Heading level={3} size="small" color="blueDark">
-                        <FormattedMessage defaultMessage="Balance" />
-                      </Heading>
-                    </Row>
-                    <StatusText className="mt10">{status}</StatusText>
-                  </Balance>
-                  <div>
-                    {networkAllowed && lowBalance && (
-                      <>
-                        <FormattedMessage
-                          defaultMessage="You do not have enough {eth} in this account for
-                          {numberOfValidators} {validator}"
-                          values={{
-                            numberOfValidators: depositKeys.length,
-                            eth: TICKER_NAME,
-                            validator:
-                              depositKeys.length > 1
-                                ? formatMessage({
-                                    defaultMessage: 'validators',
-                                  })
-                                : formatMessage({
-                                    defaultMessage: 'validator',
-                                  }),
-                          }}
-                        />
-                      </>
-                    )}
-                    {!IS_MAINNET && lowBalance && (
-                      <FaucetLink to={FAUCET_URL} primary>
-                        <FormattedMessage
-                          defaultMessage="Get {TICKER_NAME}"
-                          values={{
-                            TICKER_NAME,
-                          }}
-                        />
-                      </FaucetLink>
-                    )}
-                  </div>
-                </>
-              )}
-            </Paper>
-          </Animated>
-        </WalletConnectedContainer>
-        <WalletButtonContainer>
-          <Animated
-            animationIn="fadeInLeft"
-            animationOut="fadeOutLeft"
-            isVisible={!walletConnected}
-            animateOnMount={false}
-            animationInDuration={200}
-            animationOutDuration={200}
-          >
-            <WalletButtonSubContainer>
-              <WalletButton
-                selectedWallet={selectedWallet}
-                setSelectedWallet={setSelectedWallet}
-                logoSource={metamaskLogo}
-                walletProvider={metamask}
-                title="Metamask"
-                error={walletProvider === metamask ? error : undefined}
-              />
-
-              <WalletButton
-                invalid={!ENABLE_RPC_FEATURES}
-                selectedWallet={selectedWallet}
-                setSelectedWallet={setSelectedWallet}
-                logoSource={fortmaticLogo}
-                walletProvider={fortmatic}
-                title="Fortmatic"
-                error={walletProvider === fortmatic ? error : undefined}
-              />
-              <MetamaskHardwareButton />
-            </WalletButtonSubContainer>
-          </Animated>
-        </WalletButtonContainer>
+              </Paper>
+            </Animated>
+          </WalletConnectedContainer>
+        ) : (
+          <WalletButtonContainer>
+            <Animated
+              animationIn="fadeInLeft"
+              animationOut="fadeOutLeft"
+              isVisible={!walletConnected}
+              animateOnMount={false}
+              animationInDuration={200}
+              animationOutDuration={200}
+            >
+              <WalletButtonSubContainer>
+                <WalletButton
+                  selectedWallet={selectedWallet}
+                  setSelectedWallet={setSelectedWallet}
+                  logoSource={metamaskLogo}
+                  walletProvider={metamask}
+                  title="Metamask"
+                  error={walletProvider === metamask ? error : undefined}
+                />
+                {!IS_NON_INFURA_TESTNET && (
+                  <WalletButton
+                    invalid={PORTIS_DAPP_ID === ''}
+                    selectedWallet={selectedWallet}
+                    setSelectedWallet={setSelectedWallet}
+                    logoSource={portisLogo}
+                    walletProvider={portis}
+                    title="Portis"
+                    error={walletProvider === portis ? error : undefined}
+                  />
+                )}
+                {!IS_NON_INFURA_TESTNET && (
+                  <WalletButton
+                    invalid={!ENABLE_RPC_FEATURES}
+                    selectedWallet={selectedWallet}
+                    setSelectedWallet={setSelectedWallet}
+                    logoSource={fortmaticLogo}
+                    walletProvider={fortmatic}
+                    title="Fortmatic"
+                    error={walletProvider === fortmatic ? error : undefined}
+                  />
+                )}
+                <MetamaskHardwareButton />
+              </WalletButtonSubContainer>
+            </Animated>
+          </WalletButtonContainer>
+        )}
       </Container>
 
       {error && error instanceof NoEthereumProviderError && (
@@ -464,7 +506,6 @@ const _ConnectWalletPage = ({
           </Text>
           <Link isTextLink={false} to="https://metamask.io/">
             <Button
-              className="mr10"
               label={formatMessage({ defaultMessage: 'Download MetaMask' })}
             />
           </Link>
@@ -484,7 +525,6 @@ const _ConnectWalletPage = ({
         {!walletConnected && (
           <Link to={routesEnum.uploadValidatorPage}>
             <Button
-              className="mr10"
               width={100}
               label={formatMessage({ defaultMessage: 'Back' })}
             />
@@ -495,7 +535,6 @@ const _ConnectWalletPage = ({
             width={300}
             onClick={deactivate}
             label={formatMessage({ defaultMessage: 'Connect new wallet' })}
-            className="mr10"
             color="blueDark"
           />
         )}

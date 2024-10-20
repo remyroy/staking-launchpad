@@ -10,13 +10,15 @@ import { ImageSelectionBox } from '../../components/ImageSelectionBox';
 import { Alert } from '../../components/Alert';
 import { Client } from './index';
 import { ClientId } from '../../store/actions/clientActions';
+import { TUTORIAL_URL, NETWORK_NAME } from '../../utils/envVars';
 
-const ClientOptionContainer = styled.div`
-  width: 100%;
+const ClientOptionContainer = styled.div<{ overFour: boolean }>`
+  width: min(${({ overFour }) => (overFour ? '700' : '1000')}px, 100%);
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 2rem;
+  margin-inline: auto;
 `;
 
 const ClientDescriptionContainer = styled.div`
@@ -54,14 +56,24 @@ const SelectClientSection = ({
         <FormattedMessage
           defaultMessage="To process incoming validator deposits from the execution layer
           (formerly 'Eth1' chain), you'll need to run an execution client as well as your
-          consensus client (formerly 'Eth2'). You can use a third-party service
-          like Infura, but we recommend running your own client to
-          keep the network as decentralized as possible."
+          consensus client (formerly 'Eth2')."
         />
       </div>
     )}
+    {TUTORIAL_URL !== null && (
+      <div style={{ paddingBottom: '1rem' }}>
+        <Link to={TUTORIAL_URL} primary>
+          <FormattedMessage
+            defaultMessage="Check this document to learn how to run a node on {networkName}"
+            values={{
+              networkName: NETWORK_NAME,
+            }}
+          />
+        </Link>
+      </div>
+    )}
     <Box className="flex flex-column space-between mt10">
-      <ClientOptionContainer>
+      <ClientOptionContainer overFour={clients.length > 4}>
         {clients.map(({ clientId, name, imgUrl, language }) => {
           const inputId = `${clientId}-client`;
           const onClick = () => setCurrentClient(clientId);

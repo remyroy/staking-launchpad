@@ -2,11 +2,16 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { HashLink as Anchor } from 'react-router-hash-link';
 import styled from 'styled-components';
+import { Code } from '../../components/Code';
 import { Link } from '../../components/Link';
 import { PageTemplate } from '../../components/PageTemplate';
 import { Heading } from '../../components/Heading';
 import { Text } from '../../components/Text';
-import { PRICE_PER_VALIDATOR } from '../../utils/envVars';
+import {
+  EJECTION_PRICE,
+  PRICE_PER_VALIDATOR,
+  TICKER_NAME,
+} from '../../utils/envVars';
 
 const FAQStyles = styled.div`
   section {
@@ -15,18 +20,26 @@ const FAQStyles = styled.div`
   a {
     text-decoration: none;
   }
+  ul {
+    color: ${p => p.theme.blue.dark};
+    font-family: 'inherit';
+  }
 `;
 
 const BlockQuote = styled.div`
   margin-top: 10px;
-  padding-left: 20px;
-  border-left: 5px solid lightgray;
+  padding-inline-start: 20px;
+  border-inline-start: 5px solid lightgray;
 `;
 
 const SectionTitle = styled(Heading)`
   margin-top: 30px;
   border-bottom: 1px solid lightgray;
   padding-bottom: 10px;
+`;
+
+const AllCaps = styled.span`
+  text-transform: uppercase;
 `;
 
 export const FAQ = () => {
@@ -149,6 +162,12 @@ export const FAQ = () => {
                 }}
               />
             </Text>
+            <Text className="mt10">
+              <FormattedMessage
+                defaultMessage="Validators with a maxed-out effective balance and a linked execution withdrawal address will have any balance over {PRICE_PER_VALIDATOR} {TICKER_NAME} automatically withdrawn as excess balance."
+                values={{ PRICE_PER_VALIDATOR, TICKER_NAME }}
+              />
+            </Text>
           </section>
           <section>
             <Heading level={4}>
@@ -159,7 +178,7 @@ export const FAQ = () => {
                 }}
               />
             </Heading>
-            <Text className="mt20 mb20">
+            <Text className="mt10">
               <FormattedMessage
                 defaultMessage="Each {pricePerValidator} ETH deposit activates one set of validator keys. These keys are used to sign off on the state of the network. The lower the ETH requirement, the more resulting signatures must be saved by the network. {pricePerValidator} ETH was chosen as a balance between enabling as many people as possible to stake without inhibiting decentralization by bloating the size of each block with signatures."
                 values={{
@@ -175,31 +194,25 @@ export const FAQ = () => {
                 }}
               />
             </Text>
-            <Text className="mt20 mb20">
+            <Text className="mt10">
               <FormattedMessage
-                defaultMessage="Although a validator's vote is weighted by the amount it has at stake, each validators voting weight starts at, and is capped at {pricePerValidator}. It is possible to drop below this with poor node performance, but it is not possible to raise above it."
-                values={{
-                  pricePerValidator: PRICE_PER_VALIDATOR,
-                }}
+                defaultMessage="Although a validator's vote is weighted by the amount it has at stake, each validators voting weight starts at, and is capped at {PRICE_PER_VALIDATOR}. It is possible to drop below this with poor node performance, but it is not possible to raise above it."
+                values={{ PRICE_PER_VALIDATOR }}
               />
             </Text>
             <Text className="mt10">
               <FormattedMessage
-                defaultMessage="Do not deposit more than {pricePerValidator} ETH for a single validator. It will not add to your rewards and will be locked until the planned {shanghai} update."
-                values={{
-                  pricePerValidator: PRICE_PER_VALIDATOR,
-                  shanghai: (
-                    <Link
-                      inline
-                      primary
-                      to="https://github.com/ethereum/pm/issues/450"
-                    >
-                      Shanghai
-                    </Link>
-                  ),
-                }}
+                defaultMessage="Do not deposit more than {PRICE_PER_VALIDATOR} ETH for a single validator—it will not add to your rewards."
+                values={{ PRICE_PER_VALIDATOR }}
               />
             </Text>
+            <Link
+              primary
+              className="mt20"
+              to="https://www.attestant.io/posts/understanding-validator-effective-balance/"
+            >
+              <FormattedMessage defaultMessage="Understanding validator effective balance" />
+            </Link>
           </section>
           <section>
             <Heading level={4}>
@@ -252,10 +265,11 @@ export const FAQ = () => {
             </Text>
             <Text className="mt10">
               <FormattedMessage
-                defaultMessage="You should certainly top up if your balance is close to 16 ETH.
+                defaultMessage="You should certainly top up if your balance is close to {EJECTION_PRICE} ETH.
                   This is to ensure you don’t get kicked out of the validator
-                  set (which automatically happens if your balance falls below 16
+                  set (which automatically happens if your balance falls below {EJECTION_PRICE}
                   ETH)."
+                values={{ EJECTION_PRICE }}
               />
             </Text>
             <Text className="mt10">
@@ -275,32 +289,41 @@ export const FAQ = () => {
             <Text className="mt10">
               <FormattedMessage
                 defaultMessage="You can signal your intent to stop validating by signing a
-                  voluntary exit message with your validator."
+                  voluntary exit message with your validator at any time."
               />
             </Text>
             <Text className="mt10">
               <FormattedMessage
-                defaultMessage="However, bear in mind that for the foreseeable future, once
-                  you’ve exited, there’s no going back."
+                defaultMessage="This will start the process of ending your commitments on the
+                network. An “exit epoch” will be calculated based on how many other
+                validators are exiting at the same time. When this epoch is reached, your validator
+                account will no longer be eligible for rewards, and will no longer be at risk of
+                losing funds from being offline."
               />
             </Text>
             <Text className="mt10">
-              <FormattedMessage defaultMessage="Currently there’s no way for you to re-activate your validator, and you won’t be able to transfer or withdraw your funds until withdrawals are enabled. This is proposed to be included in the next network upgrade, known as the Shanghai upgrade. This means your funds will remain inaccessible at least until then." />
-              <Link
-                className="mt20"
-                to="https://ethereum-magicians.org/t/shanghai-core-eip-consideration/10777"
-                primary
-              >
-                <FormattedMessage defaultMessage="Shanghai Core EIP Consideration" />
-              </Link>
-              <Link
-                className="mt20"
-                to="https://github.com/ethereum/pm/issues/450"
-                primary
-              >
-                <FormattedMessage defaultMessage="Shanghai Planning (GitHub issue)" />
-              </Link>
+              <FormattedMessage
+                defaultMessage="A “withdrawable epoch” will also be calculated, which is 256 epochs
+                after the calculated exit epoch (~27.3 hours later). When this epoch is reached, your
+                validator will be eligible for a {fullWithdrawal} of all remaining funds."
+                values={{
+                  fullWithdrawal: (
+                    <em>
+                      <FormattedMessage defaultMessage="full withdrawal" />
+                    </em>
+                  ),
+                }}
+              />
             </Text>
+            <Text className="mt10">
+              <FormattedMessage
+                defaultMessage="This full withdraw of funds requires that a withdrawal address be set,
+                and will be automatically transferred in the next validator sweep."
+              />
+            </Text>
+            <Link to="/withdrawals" primary className="mt20">
+              <FormattedMessage defaultMessage="More on withdrawals" />
+            </Link>
           </section>
           <section>
             <Heading level={4}>
@@ -341,14 +364,14 @@ export const FAQ = () => {
                 defaultMessage="These terminology updates only change naming conventions; this does not alter
                   Ethereum's goals or roadmap."
               />
-              <Link
-                className="mt20"
-                to="https://blog.ethereum.org/2022/01/24/the-great-eth2-renaming/"
-                primary
-              >
-                <FormattedMessage defaultMessage="Learn more about the great renaming" />
-              </Link>
             </Text>
+            <Link
+              to="https://blog.ethereum.org/2022/01/24/the-great-eth2-renaming/"
+              primary
+              className="mt20"
+            >
+              <FormattedMessage defaultMessage="Learn more about the great renaming" />
+            </Link>
           </section>
         </section>
         <section>
@@ -365,8 +388,8 @@ export const FAQ = () => {
               <FormattedMessage defaultMessage="As a staker you are required to maintain and operate a node, running BOTH a consensus client AND an execution client." />
             </Text>
             <BlockQuote>
-              <Text className="mt20 mb20">
-                <FormattedMessage defaultMessage="This became a requirement at time of the Merge, so be sure you're running both before staking." />
+              <Text className="my20">
+                <FormattedMessage defaultMessage="This became a requirement at time of The Merge, so be sure you're running both before staking." />
               </Text>
             </BlockQuote>
             <Link primary to="/checklist">
@@ -387,7 +410,11 @@ export const FAQ = () => {
             </Text>
             <Text className="mt10">
               <FormattedMessage
-                defaultMessage="With the transition to proof-of-stake complete via the Merge, validators are now responsible for processing transactions and signing off on their validity. This data is {not} available from popular third-party sources since the Merge. Using a third-party provider will result in your validator being offline. When data sharding is implemented, validators will also be at risk of slashing under the {pocGame}."
+                defaultMessage="With the transition to proof-of-stake complete via The Merge, validators are
+                now responsible for processing transactions and signing off on their validity. This data is
+                {not} available from popular third-party sources as of The Merge. Using a third-party provider
+                will result in your validator being offline. When Danksharding is implemented, validators may
+                also be at risk of slashing under the {pocGame}."
                 values={{
                   not: (
                     <em>
@@ -413,7 +440,7 @@ export const FAQ = () => {
             </Heading>
             <Text className="mt10">
               <FormattedMessage
-                defaultMessage="As a validator you are rewarded for proposing / attesting to
+                defaultMessage="As a validator you are rewarded for proposing/attesting to
                 blocks that are included in the chain."
               />
             </Text>
@@ -428,14 +455,14 @@ export const FAQ = () => {
             </Text>
             <ul>
               <li>
-                <FormattedMessage defaultMessage="Rewards are given for actions that help the network reach consensus." />
+                <FormattedMessage defaultMessage="Rewards are given for actions that help the network reach consensus" />
               </li>
               <li>
-                <FormattedMessage defaultMessage="Minor penalties are given for inadvertant actions (or inactions) that hinder consensus." />
+                <FormattedMessage defaultMessage="Minor penalties are given for inadvertent actions (or inactions) that hinder consensus" />
               </li>
               <li>
                 <FormattedMessage
-                  defaultMessage="And major penalities—or {slashings}—are given for malicious actions."
+                  defaultMessage="Major penalities—or {slashings}—are given for malicious actions"
                   values={{
                     slashings: (
                       <strong>
@@ -472,15 +499,13 @@ export const FAQ = () => {
               />
             </Text>
             <BlockQuote>
-              <Text className="mt20 mb20">
-                <FormattedMessage defaultMessage="Since the Merge, validators will also be responsible for processing transactions, and thus be entitled to unburnt gas fees associated with included transactions when proposing blocks. These fees are accounted for on the execution layer, not the consensus layer, and thus require a traditional Ethereum address to be provided to your client." />
+              <Text className="my20">
+                <FormattedMessage defaultMessage="Since The Merge, validators will also be responsible for processing transactions, and thus be entitled to unburnt gas fees associated with included transactions when proposing blocks. These fees are accounted for on the execution layer, not the consensus layer, and thus require a traditional Ethereum address to be provided to your client." />
               </Text>
             </BlockQuote>
-            <Text className="mt10">
-              <Link primary to="/checklist">
-                <FormattedMessage defaultMessage="View the Staking Checklist" />
-              </Link>
-            </Text>
+            <Link primary to="/checklist" className="mt20">
+              <FormattedMessage defaultMessage="View the Staking Checklist" />
+            </Link>
           </section>
           <section>
             <Heading level={4}>
@@ -488,7 +513,7 @@ export const FAQ = () => {
             </Heading>
             <Text className="mt10">
               <FormattedMessage
-                defaultMessage="Rewards and penalties are issued roughly every six and a half minutes—a period of time
+                defaultMessage="Rewards and penalties are issued every 6.4 minutes—a period of time
                   known as an epoch."
               />
             </Text>
@@ -499,9 +524,9 @@ export const FAQ = () => {
               />
             </Text>
             <BlockQuote>
-              <Text className="mt10">
+              <Text className="my20">
                 <FormattedMessage
-                  defaultMessage="Your validator will also receive unburnt gas fees when proposing blocks. Validators are chosen randomly by the protocol to propose blocks, and only one validator can propose a block for each 12-second slot. There are 7200 slots each day, so each validator has 7200 chances-per-day to propose a block. If there are 360,000 validators, each validator will {average} a block proposal every 50 days. "
+                  defaultMessage="Your validator will also receives unburnt gas fees when proposing blocks. Validators are chosen randomly by the protocol to propose blocks, and only one validator can propose a block for each 12-second slot. There are 7200 slots each day, so each validator has 7200 chances-per-day to propose a block. If there are 500,000 validators, each validator will {average} a block proposal every 70 days. "
                   values={{
                     average: (
                       <em>
@@ -541,7 +566,7 @@ export const FAQ = () => {
               />
             </Text>
             <BlockQuote>
-              <Text className="mt10">
+              <Text className="my20">
                 <FormattedMessage
                   defaultMessage="Note however that this scaling mechanism works in a non-obvious
                     way. To understand the precise details of how it works requires
@@ -673,12 +698,12 @@ export const FAQ = () => {
               </li>
             </ol>
             <BlockQuote>
-              <Text className="mt10">
+              <Text className="my20">
                 <FormattedMessage
-                  defaultMessage="Note that in the second (unlikely) scenario, you stand to
-                    progressively lose up to 50% (16 ETH) of your stake over 21
-                    days. After 21 days you are ejected out of the validator pool.
-                    This ensures that blocks start finalizing again at some point."
+                  defaultMessage="Note that in the second (unlikely) scenario, you stand to progressively lose up to 50%
+                  ({EJECTION_PRICE} ETH) of your stake over 21 days. After 21 days you are ejected out of the validator set.
+                  This ensures that blocks start finalizing again at some point."
+                  values={{ EJECTION_PRICE }}
                 />
               </Text>
             </BlockQuote>
@@ -733,7 +758,10 @@ export const FAQ = () => {
               />
             </Text>
             <Text className="mt10">
-              <FormattedMessage defaultMessage="The idea behind this is to minimize the losses from honest mistakes, but strongly disincentivize coordinated attacks." />
+              <FormattedMessage
+                defaultMessage="The idea behind this is to minimize the losses from honest mistakes, but strongly
+                disincentivize coordinated attacks."
+              />
             </Text>
           </section>
           <section>
@@ -742,9 +770,9 @@ export const FAQ = () => {
             </Heading>
             <Text className="mt10">
               <FormattedMessage
-                defaultMessage="Slashing has two purposes: (1) to make it prohibitively expensive
-                  to attack the network, and (2) to stop validators from being lazy by
-                  checking that they actually perform their duties. If you're slashed because you've acted in a provably destructive manner, a portion of your stake will be destroyed."
+                defaultMessage="Slashing has two purposes: (1) to make it prohibitively expensive to attack the network,
+                and (2) to stop validators from being lazy by checking that they actually perform their duties. If you're
+                slashed because you've acted in a provably destructive manner, a portion of your stake will be destroyed."
               />
             </Text>
             <Text className="mt10">
@@ -767,9 +795,10 @@ export const FAQ = () => {
             </Heading>
             <Text className="mt10">
               <FormattedMessage
-                defaultMessage="{withdrawalCredentials} is a 32-byte field in the deposit, for verifying the
-                  destination of valid withdrawals. Currently, there are two types of
-                  withdrawals: BLS withdrawal and Ethereum address withdrawal."
+                defaultMessage="{withdrawalCredentials} is a 32-byte field associated with every validator,
+                  initially set during deposit, for verifying the destination of valid withdrawals. Currently,
+                  there are two types of withdrawal credentials: BLS credentials (Type 0, or {type0}) and execution
+                  (Ethereum address) credentials (Type 1, or {type1})."
                 values={{
                   withdrawalCredentials: (
                     <Link
@@ -777,17 +806,21 @@ export const FAQ = () => {
                       inline
                       to="https://github.com/ethereum/consensus-specs/blob/master/specs/phase0/validator.md#withdrawal-credentials"
                     >
-                      <FormattedMessage defaultMessage="Withdrawal Credentials" />
+                      <FormattedMessage defaultMessage="Withdrawal credentials" />
                     </Link>
                   ),
+                  type0: <Code>0x00</Code>,
+                  type1: <Code>0x01</Code>,
                 }}
               />
             </Text>
-            <ol>
+            <ul>
               <li>
                 <Text className="mt10">
                   <FormattedMessage
-                    defaultMessage="BLS withdrawal: By default, deposit-cli would generate withdrawal credentials with the {boldWithdrawalKey} derived via mnemonics in {eip2334} format."
+                    defaultMessage="BLS credentials: By default, the deposit CLI would generate withdrawal credentials
+                    with the {boldWithdrawalKey} derived via mnemonics in {eip2334} format. This format is not compatible
+                    with Beacon Chain withdrawals and must be updated to Ethereum address credentials to enable withdrawals."
                     values={{
                       boldWithdrawalKey: (
                         <strong>
@@ -812,13 +845,19 @@ export const FAQ = () => {
               <li>
                 <Text className="mt10">
                   <FormattedMessage
-                    defaultMessage="Ethereum address withdrawal: If you want to withdraw to your Mainnet wallet address (formerly 'Eth1' address) after the post-merge cleanup upgrade, you can set {ethAddressWithdraw} when running deposit-cli. {boldWarning}"
+                    defaultMessage="Execution credentials: If you want to withdraw to your execution
+                      wallet address you can set an “eth1 withdrawal address” using {ethAddressWithdraw}
+                      when running the deposit CLI. {boldWarning}"
                     values={{
                       ethAddressWithdraw: (
-                        <code>
+                        <Code>
                           {' '}
-                          {`--eth1_withdrawal_address <YOUR ETH ADDRESS>`}{' '}
-                        </code>
+                          {`--eth1_withdrawal_address <`}
+                          <AllCaps>
+                            <FormattedMessage defaultMessage="Your ETH address" />
+                          </AllCaps>
+                          {`>`}{' '}
+                        </Code>
                       ),
                       boldWarning: (
                         <strong>
@@ -832,13 +871,24 @@ export const FAQ = () => {
                   />
                 </Text>
               </li>
-            </ol>
+            </ul>
             <section>
               <Heading level={4}>
                 <FormattedMessage defaultMessage="Can I change the withdrawal credentials of my validator after the first deposit?" />
               </Heading>
               <Text className="mt10">
-                <FormattedMessage defaultMessage="No, you cannot change your withdrawal credentials in top-ups." />
+                <FormattedMessage
+                  defaultMessage="If the “eth1 withdrawal address” was not provided on initial deposit, you can
+                  submit a once-only {BTEC} message signed with your BLS withdrawal keys to specific your
+                  desired Ethereum withdrawal address. This address can only be provided once, and cannot be changed again."
+                  values={{
+                    BTEC: (
+                      <em>
+                        <FormattedMessage defaultMessage="BLS To Execution Change" />
+                      </em>
+                    ),
+                  }}
+                />
               </Text>
             </section>
           </section>
@@ -854,20 +904,18 @@ export const FAQ = () => {
               <FormattedMessage defaultMessage="What happens if I lose my signing key?" />
             </Heading>
             <Text className="mt10">
-              <FormattedMessage
-                defaultMessage="If you lose your signing key, your validator can no longer propose or
-              attest."
-              />
+              <FormattedMessage defaultMessage="If you lose your signing key, your validator can no longer propose or attest." />
             </Text>
             <Text className="mt10">
               <FormattedMessage
-                defaultMessage="Over time, your balance will decrease as you are
-                  punished for not participating in the consensus process. When your balance reaches 16 ETH, you will be
-                  automatically exited from the validator pool."
+                defaultMessage="Over time, your balance will decrease as you are penalized for not participating in the
+                consensus process. When your balance reaches {EJECTION_PRICE} ETH, you will be automatically exited from
+                the validator set."
+                values={{ EJECTION_PRICE }}
               />
             </Text>
             <BlockQuote>
-              <Text className="mt10">
+              <Text className="my20">
                 <FormattedMessage
                   defaultMessage="However, all is not lost. Assuming you derive your keys
                     using {eip2334} (as per the default onboarding flow) then {strongText}."
@@ -885,7 +933,7 @@ export const FAQ = () => {
                       <strong>
                         {formatMessage({
                           defaultMessage:
-                            'you can always recalculate your signing key from your withdrawal key',
+                            'you can always recalculate your signing key from your mnemonic',
                         })}
                       </strong>
                     ),
@@ -895,33 +943,38 @@ export const FAQ = () => {
               </Text>
             </BlockQuote>
             <Text className="mt10">
-              <FormattedMessage defaultMessage="Withdrawal features are proposed to be included in the upcoming Shanghai upgrade. After this functionality is added, your balance can then be withdrawn—with your withdrawal key—after a minimum delay of around a day." />
+              <FormattedMessage
+                defaultMessage="If you've already provided an Ethereum withdrawal address for your withdrawal credentials, your
+                entire remaining balance will be transferred to this address upon exit. If not, your mnemonic will still be
+                needed to generate your withdrawal key to set your withdrawal address."
+              />
             </Text>
-            <BlockQuote>
-              <Text className="mt10">
-                <FormattedMessage
-                  defaultMessage="Note that this delay can be longer if many others are exiting or
-                    being kicked out at the same time."
-                />
-              </Text>
-            </BlockQuote>
           </section>
           <section>
             <Heading level={4}>
-              <FormattedMessage defaultMessage="What happens if I use BLS withdrawal and I lose my withdrawal key?" />
+              <FormattedMessage defaultMessage="What happens if I have BLS withdrawal credentials and I lose my withdrawal key?" />
             </Heading>
             <Text className="mt10">
               <FormattedMessage
-                defaultMessage="If you lose your withdrawal key, there is no way to access to
-              the funds held by your validator."
+                defaultMessage="If you lose your withdrawal key, your mnemonic will be needed to recover. If your mnemonic is
+                lost, and you have not updated your withdrawal credentials with an Ethereum (execution) withdrawal address,
+                there is no way to access to the funds held by your validator. As such, it is essential to ensure your validator
+                mnemonic is safely backed up."
               />
             </Text>
             <Text className="mt10">
               <FormattedMessage
-                defaultMessage="As such, it’s a good idea to create your keys from mnemonics which
-                  act as another backup. This will be the default for validators who
-                  join via this site’s onboarding process."
+                defaultMessage="Once an execution address has been provided by signing the BLS To Execution Change message, the
+                withdrawal keys derived from your validator mnemonic are no longer utilized. Therefore, providing an execution
+                address that you control as early as possible is the recommended option for most users, and is the default path
+                for those who join via this site's onboarding process. This protects you against permanent loss of all funds in
+                the event you are unable to recover your mnemonic and withdrawal keys."
               />
+            </Text>
+            <Text className="mt10">
+              <Link primary inline to="/withdrawals/">
+                <FormattedMessage defaultMessage="More on withdrawals" />
+              </Link>
             </Text>
           </section>
           <section>
@@ -930,15 +983,44 @@ export const FAQ = () => {
             </Heading>
             <Text className="mt10">
               <FormattedMessage
-                defaultMessage="If your withdrawal key is stolen, the thief can transfer your
-                  validator’s balance, but only once the validator has exited."
+                defaultMessage="If you provided a withdrawal address when initially generating your keys, the withdrawal key no
+                longer has any use. The only address that validator funds can be transferred to is this address, and it cannot be
+                changed once set."
               />
             </Text>
             <Text className="mt10">
-              <FormattedMessage defaultMessage="If your signing key is not under the thief’s control, the thief cannot exit your validator." />
+              <FormattedMessage
+                defaultMessage="If this was not provided, the withdrawal key can be used to sign a message declaring a withdrawal
+                address. The withdrawal key can be generated using your mnemonic. If your withdrawal key or mnemonic have been stolen,
+                and a withdrawal address has not yet been set, the thief will have the ability to irreversibly designate their own
+                account as the withdrawal address for your validator."
+              />
+            </Text>
+            <Text className="my20">
+              <BlockQuote>
+                <em>
+                  <FormattedMessage
+                    defaultMessage="If your mnemonic is stolen/compromised, and you have not yet set a withdrawal address, you
+                    should attempt this {immediately} to prevent permanent lose of funds, before the attacker irreversibly designates
+                    their own withdrawal address for your validator."
+                    values={{
+                      immediately: (
+                        <strong>
+                          <AllCaps>
+                            <FormattedMessage defaultMessage="immediately" />
+                          </AllCaps>
+                        </strong>
+                      ),
+                    }}
+                  />
+                </em>
+              </BlockQuote>
             </Text>
             <Text className="mt10">
-              <FormattedMessage defaultMessage="With your signing key, you could attempt to quickly exit the validator and then transfer the funds—with the withdrawal key—before the thief." />
+              <FormattedMessage
+                defaultMessage="If a withdrawal address has not been set, and you have lost access to the mnemonic seed phrase
+                without it being stolen/compromised, your funds will remain locked in the validator account indefinitely."
+              />
             </Text>
           </section>
           <section>
@@ -948,9 +1030,8 @@ export const FAQ = () => {
             <Text className="mt10">
               <FormattedMessage
                 defaultMessage="Validating involves two keys for security reasons. Your signing key must be available at all
-                  times. As such, it will need to be held online. Since anything
-                  online is vulnerable to being hacked, it’s not a good idea to use
-                  the same key for withdrawals."
+                  times. As such, it will need to be held online. Since anything online is vulnerable to being exposed, it’s
+                  not a good idea to use the same key for withdrawals."
               />
             </Text>
           </section>
@@ -971,7 +1052,7 @@ export const FAQ = () => {
                   help! You can find support on {discord} or {reddit}."
                 values={{
                   discord: (
-                    <Link primary inline to="https://discord.io/ethstaker">
+                    <Link primary inline to="https://dsc.gg/ethstaker">
                       Discord
                     </Link>
                   ),
