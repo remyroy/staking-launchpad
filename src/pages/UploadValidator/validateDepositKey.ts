@@ -69,17 +69,6 @@ const validateFieldFormatting = (
     return false;
   }
 
-  // check the deposit-cli version
-  if (
-    compareVersions.compare(
-      depositDatum.deposit_cli_version,
-      MIN_DEPOSIT_CLI_VERSION,
-      '<'
-    )
-  ) {
-    return false;
-  }
-
   return true;
 };
 
