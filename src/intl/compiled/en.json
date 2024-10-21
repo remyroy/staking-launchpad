@@ -4457,20 +4457,6 @@
       "value": "Once a signed voluntary exit message is broadcast, it takes:"
     }
   ],
-  "W2Eues": [
-    {
-      "type": 0,
-      "value": "Warning: This is a staking launchpad for the "
-    },
-    {
-      "type": 1,
-      "value": "testnet"
-    },
-    {
-      "type": 0,
-      "value": "."
-    }
-  ],
   "W3t7Ob": [
     {
       "type": 0,
@@ -8121,12 +8107,6 @@
       "value": "The Beacon Chain"
     }
   ],
-  "xZZMZ5": [
-    {
-      "type": 0,
-      "value": "testnet"
-    }
-  ],
   "xbet2w": [
     {
       "type": 0,
@@ -8237,6 +8217,20 @@
     {
       "type": 0,
       "value": "What is a node operator?"
+    }
+  ],
+  "yFr3E/": [
+    {
+      "type": 0,
+      "value": "Warning: This is a staking launchpad for the "
+    },
+    {
+      "type": 1,
+      "value": "testnet"
+    },
+    {
+      "type": 0,
+      "value": " testnet."
     }
   ],
   "yFtJza": [

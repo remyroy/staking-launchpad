@@ -14,18 +14,21 @@ import {
   PORTIS_DAPP_ID,
   RPC_URL,
   TESTNET_LAUNCHPAD_NAME,
+  CHAIN_ID,
 } from '../../utils/envVars';
 
 export enum NetworkChainId {
   'Mainnet' = 1,
   'Sepolia' = 11155111,
   'Holesky' = 17000,
+  'Ephemery' = CHAIN_ID,
 }
 
 export const NetworkChainIdDict: { [id: string]: number } = {
   Mainnet: 1,
   Sepolia: 11155111,
   Holesky: 17000,
+  Ephemery: CHAIN_ID,
 };
 
 /*
@@ -37,6 +40,7 @@ const supportedNetworks = [
   NetworkChainId.Mainnet,
   NetworkChainId.Sepolia,
   NetworkChainId.Holesky,
+  NetworkChainId.Ephemery,
 ];
 
 // FIXME: disabled Portis for now
@@ -45,6 +49,7 @@ const portisSupportedNetworks = [NetworkChainId.Mainnet];
 enum Testnet {
   'Sepolia',
   'Holesky',
+  'Ephemery',
 }
 
 enum Mainnet {
@@ -55,6 +60,7 @@ export const NetworkNameToChainId: { [key: string]: NetworkChainId } = {
   Holesky: NetworkChainId.Holesky,
   Mainnet: NetworkChainId.Mainnet,
   Sepolia: NetworkChainId.Sepolia,
+  Ephemery: NetworkChainId.Ephemery,
 };
 
 export const TARGET_NETWORK_CHAIN_ID = IS_MAINNET

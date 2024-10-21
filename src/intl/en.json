@@ -1699,9 +1699,6 @@
   "W1mus6": {
     "message": "Once a signed voluntary exit message is broadcast, it takes:"
   },
-  "W2Eues": {
-    "message": "Warning: This is a staking launchpad for the {testnet}."
-  },
   "W3t7Ob": {
     "message": "Japanese"
   },
@@ -3074,9 +3071,6 @@
   "xXWzDf": {
     "message": "The Beacon Chain"
   },
-  "xZZMZ5": {
-    "message": "testnet"
-  },
   "xbet2w": {
     "message": "Install python3.7+"
   },
@@ -3118,6 +3112,9 @@
   },
   "y86+cK": {
     "message": "What is a node operator?"
+  },
+  "yFr3E/": {
+    "message": "Warning: This is a staking launchpad for the {testnet} testnet."
   },
   "yFtJza": {
     "message": "Please ensure that you have control over the keys to this address."

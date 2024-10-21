@@ -234,6 +234,8 @@ const _UploadValidatorPage = ({
                 forkVersion !== GENESIS_FORK_VERSION.toString('hex')
               ) {
                 // file doesn't match the correct network
+                console.log(forkVersion);
+                console.log(GENESIS_FORK_VERSION.toString('hex'));
                 handleWrongNetwork();
               }
             }
