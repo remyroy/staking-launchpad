@@ -13,7 +13,6 @@ import {
   NETWORK_NAME,
   PORTIS_DAPP_ID,
   RPC_URL,
-  TESTNET_LAUNCHPAD_NAME,
   CHAIN_ID,
 } from '../../utils/envVars';
 
@@ -65,13 +64,13 @@ export const NetworkNameToChainId: { [key: string]: NetworkChainId } = {
 
 export const TARGET_NETWORK_CHAIN_ID = IS_MAINNET
   ? NetworkChainId.Mainnet
-  : NetworkNameToChainId[TESTNET_LAUNCHPAD_NAME];
+  : NetworkNameToChainId['Ephemery'];
 
 export const IS_HOLESKY = TARGET_NETWORK_CHAIN_ID === NetworkChainId.Holesky;
 
 export const AllowedNetworks = IS_MAINNET ? Mainnet : Testnet;
 
-export const AllowedELNetworks = [NETWORK_NAME];
+export const AllowedELNetworks = [NETWORK_NAME, 'Ephemery'];
 export const metamask: InjectedConnector = new MetamaskConnector({
   supportedChainIds: supportedNetworks,
 });
