@@ -6,15 +6,14 @@ import { Web3Provider } from '@ethersproject/providers';
 import { connect } from 'react-redux';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { AbstractConnector } from '@web3-react/abstract-connector';
-import _every from 'lodash/every';
-import _some from 'lodash/some';
 import { DepositKeyInterface, StoreState } from '../../store/reducers';
-import { Heading } from '../../components/Heading';
-import { Paper } from '../../components/Paper';
-import { Text } from '../../components/Text';
 import { Alert } from '../../components/Alert';
 import { Button } from '../../components/Button';
+import { Heading } from '../../components/Heading';
 import { Link } from '../../components/Link';
+import { Paper } from '../../components/Paper';
+import { Text } from '../../components/Text';
+import { WorkflowPageTemplate } from '../../components/WorkflowPage/WorkflowPageTemplate';
 import { routesEnum } from '../../Routes';
 import { KeyList } from './Keylist';
 import { handleMultipleTransactions } from './transactionUtils';
@@ -22,9 +21,7 @@ import { TARGET_NETWORK_CHAIN_ID } from '../ConnectWallet/web3Utils';
 import { web3ReactInterface } from '../ConnectWallet';
 import { WalletDisconnected } from '../ConnectWallet/WalletDisconnected';
 import { WrongNetwork } from '../ConnectWallet/WrongNetwork';
-import { WorkflowPageTemplate } from '../../components/WorkflowPage/WorkflowPageTemplate';
 import {
-  DepositStatus,
   DispatchTransactionStatusUpdateType,
   TransactionStatus,
   updateTransactionStatus,
@@ -35,6 +32,7 @@ import {
   WorkflowStep,
 } from '../../store/actions/workflowActions';
 import { routeToCorrectWorkflowStep } from '../../utils/RouteToCorrectWorkflowStep';
+import { useDepositKeyList } from '../../hooks/useDepositKeyList';
 
 import {
   PRICE_PER_VALIDATOR,
@@ -77,29 +75,13 @@ const _TransactionsPage = ({
   const { account, chainId, connector }: web3ReactInterface = useWeb3React<
     Web3Provider
   >();
-
-  const totalTxCount = depositKeys.filter(
-    key => key.depositStatus !== DepositStatus.ALREADY_DEPOSITED
-  ).length;
-
-  const remainingTxCount = depositKeys.filter(
-    file =>
-      file.depositStatus !== DepositStatus.ALREADY_DEPOSITED &&
-      (file.transactionStatus === TransactionStatus.READY ||
-        file.transactionStatus === TransactionStatus.REJECTED)
-  ).length;
-
-  const allTxConfirmed = _every(
-    depositKeys.map(
-      file => file.transactionStatus === TransactionStatus.SUCCEEDED
-    )
-  );
-
-  const oneTxConfirmed = _some(
-    depositKeys.map(
-      file => file.transactionStatus === TransactionStatus.SUCCEEDED
-    )
-  );
+  const {
+    totalTxCount,
+    remainingTxs,
+    remainingTxCount,
+    allTxConfirmed,
+    oneTxConfirmed,
+  } = useDepositKeyList(depositKeys);
 
   const createButtonText = (): string => {
     if (totalTxCount === 1) {
@@ -140,9 +122,7 @@ const _TransactionsPage = ({
 
   const handleAllTransactionsClick = () => {
     handleMultipleTransactions(
-      depositKeys.filter(
-        key => key.depositStatus !== DepositStatus.ALREADY_DEPOSITED
-      ),
+      remainingTxs,
       connector as AbstractConnector,
       account,
       dispatchTransactionStatusUpdate
@@ -171,8 +151,8 @@ const _TransactionsPage = ({
         <FormattedMessage
           defaultMessage="Depositing with this launchpad only cost {PRICE_PER_VALIDATOR} {TICKER_NAME}
                           per validator. This is only possible with first being {whitelisted} on the 
-                          #cheap-holesky-validator channel on {ethstakerdiscordlink}. Depositing for a validator
-                          normally cost {STAKE_PER_VALIDATOR} {TICKER_NAME} per validator."
+                          #cheap-hoodi-validator channel on {ethstakerdiscordlink}. Depositing for a type 1
+                          validator normally cost {STAKE_PER_VALIDATOR} {TICKER_NAME} per validator."
           values={{
             PRICE_PER_VALIDATOR: PRICE_PER_VALIDATOR,
             TICKER_NAME: TICKER_NAME,
@@ -193,7 +173,8 @@ const _TransactionsPage = ({
       <Alert variant="error" className="my20">
         <FormattedMessage
           defaultMessage="Warning: When creating your validator keys and your deposit file for this
-                          launchpad, you need to use {faucetaddress} as your withdrawal address. This is
+                          launchpad, you need to use {faucetaddress} as your withdrawal address.
+                          You also need to use a type 1 (regular, non-compounding) validator. This is
                           only required for this launchpad. When on Mainnet, you should use a withdrawal
                           address you control if you want to use one."
           values={{
@@ -206,6 +187,23 @@ const _TransactionsPage = ({
         />
       </Alert>
       <Paper className="mt20">
+        {depositKeys.find(
+          k => k.transactionStatus === TransactionStatus.LEDGER_ERROR
+        ) && (
+          <Alert variant="error" className="mb20">
+            <FormattedMessage
+              defaultMessage="There was a problem trying to sign with your Ledger device. Please verify your Ledger
+              device has both {blindSigning} and {debugData} set to {enabled}. These can be accessed by selecting
+              the Ethereum application and then entering the {settings} menu."
+              values={{
+                blindSigning: <strong>Blind Signing</strong>,
+                debugData: <strong>Debug Data</strong>,
+                enabled: <strong>Enabled</strong>,
+                settings: <strong>Settings</strong>,
+              }}
+            />
+          </Alert>
+        )}
         <Heading level={3} size="small" color="blueMedium">
           {depositKeys.length === 1 ? (
             <FormattedMessage defaultMessage="Confirm deposit" />

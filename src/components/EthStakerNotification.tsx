@@ -19,7 +19,7 @@ export const EthStakerNotification = (): JSX.Element => {
       <StyledAlert variant="primary" round="none" pad="small">
         <FormattedMessage
           defaultMessage="Info: Your wallet needs to be {whitelisted} before you 
-                          can use this launchpad. Join the #cheap-holesky-validator 
+                          can use this launchpad. Join the #cheap-hoodi-validator 
                           channel on {ethstakerdiscordlink} to get whitelisted."
           values={{
             ethstakerdiscordlink: (
@@ -39,7 +39,8 @@ export const EthStakerNotification = (): JSX.Element => {
         <FormattedMessage
           defaultMessage="Warning: When creating your validator keys and your deposit file
                           for this launchpad, you need to use {faucetaddress} as your withdrawal
-                          address. This is only required for this launchpad. When on Mainnet, you
+                          address. You also need to use a type 1 (regular, non-compounding) validator.
+                          This is only required for this launchpad. When on Mainnet, you
                           should use a withdrawal address you control if you want to use one."
           values={{
             faucetaddress: (
@@ -52,21 +53,21 @@ export const EthStakerNotification = (): JSX.Element => {
       </StyledAlert>
       <StyledAlert variant="primary" round="none" pad="small">
         <FormattedMessage
-          defaultMessage="Info: If you already have {amount}, you can simply use {officialholeskylink}. Getting 32 Holesky ETH can be done using {holeskyfaucetlink}."
+          defaultMessage="Info: If you already have {amount}, you can simply use {officialhoodilink}. Getting 32 Hoodi ETH can be done using {hoodifaucetlink}."
           values={{
             amount: (
               <strong>
-                <FormattedMessage defaultMessage="32 Holesky ETH" />
+                <FormattedMessage defaultMessage="32 Hoodi ETH" />
               </strong>
             ),
-            officialholeskylink: (
-              <Link to="https://holesky.launchpad.ethereum.org/" inline>
-                <FormattedMessage defaultMessage="the official Holesky Launchpad" />
+            officialhoodilink: (
+              <Link to="https://hoodi.launchpad.ethereum.org/" inline>
+                <FormattedMessage defaultMessage="the official Hoodi Launchpad" />
               </Link>
             ),
-            holeskyfaucetlink: (
-              <Link to="https://faucetlink.to/holesky" inline>
-                <FormattedMessage defaultMessage="various Holesky faucets" />
+            hoodifaucetlink: (
+              <Link to="https://hoodi-faucet.pk910.de/" inline>
+                <FormattedMessage defaultMessage="a Hoodi faucet" />
               </Link>
             ),
           }}

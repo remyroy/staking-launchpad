@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl';
 import { supportedLanguages } from './intl';
 import {
   AcknowledgementPage,
+  ActionsPage,
   CongratulationsPage,
   ConnectWalletPage,
   SelectClientPage,
@@ -31,6 +32,7 @@ import { Lighthouse } from './pages/Clients/Consensus/Lighthouse';
 import { Lodestar } from './pages/Clients/Consensus/Lodestar';
 import { Besu } from './pages/Clients/Execution/Besu';
 import { Nethermind } from './pages/Clients/Execution/Nethermind';
+import { Reth } from './pages/Clients/Execution/Reth';
 import { Erigon } from './pages/Clients/Execution/Erigon';
 import { Geth } from './pages/Clients/Execution/Geth';
 
@@ -56,6 +58,7 @@ export enum routesEnum {
   geth = '/geth',
   lighthouse = '/lighthouse',
   nethermind = '/nethermind',
+  reth = '/reth',
   nimbus = '/nimbus',
   prysm = '/prysm',
   teku = '/teku',
@@ -68,6 +71,7 @@ export enum routesEnum {
   languagesPage = '/languages',
   withdrawals = '/withdrawals',
   btecGuide = '/btec',
+  actionsPage = '/validator-actions',
 }
 const routes: RouteType[] = [
   {
@@ -113,6 +117,7 @@ const routes: RouteType[] = [
   { path: routesEnum.geth, exact: true, component: Geth },
   { path: routesEnum.lighthouse, exact: true, component: Lighthouse },
   { path: routesEnum.nethermind, exact: true, component: Nethermind },
+  { path: routesEnum.reth, exact: true, component: Reth },
   { path: routesEnum.nimbus, exact: true, component: Nimbus },
   { path: routesEnum.prysm, exact: true, component: Prysm },
   { path: routesEnum.teku, exact: true, component: Teku },
@@ -123,6 +128,7 @@ const routes: RouteType[] = [
   { path: routesEnum.topUpPage, exact: true, component: TopUpPage },
   { path: routesEnum.withdrawals, exact: true, component: Withdrawals },
   { path: routesEnum.btecGuide, exact: true, component: BtecGuide },
+  { path: routesEnum.actionsPage, exact: true, component: ActionsPage },
   { path: routesEnum.landingPage, exact: true, component: LandingPage },
   // NOTE: this wildcard route must be the last index of the routes array
   { path: routesEnum.notFoundPage, component: NotFoundPage },
