@@ -27,10 +27,11 @@ import ValidatorSelector from './ValidatorSelector';
 
 import { generateCompoundParams } from '../utils';
 import { TICKER_NAME } from '../../../utils/envVars';
-import { getEtherBalance } from '../../../utils/validators';
+import { getEtherBalance, getCredentialType } from '../../../utils/validators';
 import { getSignTxStatus } from '../../../utils/txStatus';
 import { useTxModal } from '../../../hooks/useTxModal';
 import { useCompoundingQueue } from '../../../hooks/useCompoundingQueue';
+import { ValidatorType } from '../types';
 
 type PullConsolidationProps = {
   targetValidator: BeaconChainValidator; // The selected validator to consolidate into (target)
@@ -126,6 +127,10 @@ const PullConsolidation = ({
     <>
       <Button
         label={<FormattedMessage defaultMessage="Pull funds" />}
+        disabled={
+          getCredentialType(targetValidator) < ValidatorType.Compounding ||
+          sourceValidatorSet.length < 1
+        }
         destructive
         secondary
         onClick={handleOpen}
@@ -432,6 +437,9 @@ const PullConsolidation = ({
                   </Text>
                   <Text>
                     <FormattedMessage defaultMessage="You'll be asked to sign a message with your wallet. Processing of exits is not immediate, so account for up to several days before completion." />
+                  </Text>
+                  <Text>
+                    <FormattedMessage defaultMessage="Consolidation requests enter a separate queue with a small fee, shown as the transaction's send amount. The fee is minimal when the queue is short, with a small buffer added to prevent rejections from sudden activity spikes." />
                   </Text>
                   <ul style={{ paddingInlineStart: '1.5rem', marginTop: 0 }}>
                     <li>

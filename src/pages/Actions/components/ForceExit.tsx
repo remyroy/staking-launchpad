@@ -25,7 +25,7 @@ import {
   modalLayerStyle,
 } from './Shared';
 
-import { generateWithdrawalParams } from '../utils';
+import { generateWithdrawalParams, isValidatorNascent } from '../utils';
 import { getEtherBalance } from '../../../utils/validators';
 import { getSignTxStatus } from '../../../utils/txStatus';
 import { TICKER_NAME } from '../../../utils/envVars';
@@ -78,7 +78,7 @@ const ForceExit: React.FC<Props> = ({ validator }) => {
     const walletProvider = await (connector as AbstractConnector).getProvider();
     const web3 = new Web3(walletProvider);
 
-    // Force exits have withdrawal amount of 0
+    // Full exits have withdrawal amount of 0
     const {
       transactionParams,
       queue: withdrawalQueue,
@@ -111,9 +111,10 @@ const ForceExit: React.FC<Props> = ({ validator }) => {
   return (
     <>
       <Button
-        label={<FormattedMessage defaultMessage="Force exit" />}
+        label={<FormattedMessage defaultMessage="Exit fully" />}
         onClick={handleOpen}
         destructive
+        disabled={isValidatorNascent(validator)} // https://github.com/ethereum/consensus-specs/blob/dev/specs/electra/beacon-chain.md#modified-process_voluntary_exit
       />
 
       {showModal && (
@@ -155,6 +156,9 @@ const ForceExit: React.FC<Props> = ({ validator }) => {
                   </Text>
                   <Text style={{ fontSize: '1rem' }}>
                     <FormattedMessage defaultMessage="You'll be asked to sign a message with your wallet. Processing of exits is not immediate, so account for up to several days before completion." />
+                  </Text>
+                  <Text>
+                    <FormattedMessage defaultMessage="Exit requests enter a separate queue with a small fee, shown as the transaction's send amount. The fee is minimal when the queue is short, with a small buffer added to prevent rejections from sudden activity spikes." />
                   </Text>
                   <ul
                     style={{
